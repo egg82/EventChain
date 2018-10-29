@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Bukkit" />
+        <module name="Common" />
+        <module name="event-chain-bukkit" />
+        <module name="event-chain-bungee" />
+        <module name="event-chain-common" />
+        <module name="event-chain-sponge" />
+        <module name="event-chain-velocity" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
