@@ -4,8 +4,8 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.Order;
 
-public class Events {
-    private Events() {}
+public class SpongeEvents {
+    private SpongeEvents() {}
 
     public static <T extends Event> SpongeEventSubscriber<T> subscribe(Object plugin, Class<T> event, Order order, boolean beforeModifications) { return new SpongeEventSubscriber<>(plugin, event, order, beforeModifications); }
 

@@ -3,8 +3,8 @@ package ninja.egg82.events;
 import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.proxy.ProxyServer;
 
-public class Events {
-    private Events() {}
+public class VelocityEvents {
+    private VelocityEvents() {}
 
     public static <T> VelocityEventSubscriber<T> subscribe(Object plugin, ProxyServer proxy, Class<T> event, PostOrder order) { return new VelocityEventSubscriber<>(plugin, proxy, event, order); }
 

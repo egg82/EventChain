@@ -5,10 +5,10 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Events {
-    private static JavaPlugin plugin = JavaPlugin.getProvidingPlugin(Events.class);
+public class BukkitEvents {
+    private static JavaPlugin plugin = JavaPlugin.getProvidingPlugin(BukkitEvents.class);
 
-    private Events() {}
+    private BukkitEvents() {}
 
     public static <T extends Event> BukkitEventSubscriber<T> subscribe(Class<T> event, EventPriority priority) { return new BukkitEventSubscriber<>(plugin, event, priority); }
 

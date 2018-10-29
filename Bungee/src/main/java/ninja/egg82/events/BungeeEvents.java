@@ -4,8 +4,8 @@ import net.md_5.bungee.api.plugin.Event;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventPriority;
 
-public class Events {
-    private Events() {}
+public class BungeeEvents {
+    private BungeeEvents() {}
 
     public static <T extends Event> BungeeEventSubscriber<T> subscribe(Plugin plugin, Class<T> event, byte priority) { return new BungeeEventSubscriber<>(plugin, event, priority); }
 
