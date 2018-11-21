@@ -94,6 +94,8 @@ public abstract class SingleEventSubscriber<T> {
         for (Consumer<? super T> consumer : handlerConsumers) {
             try {
                 consumer.accept(event);
+            } catch (ClassCastException ignored) {
+
             } catch (Exception ex) {
                 swallowException(event, ex);
             }
@@ -102,6 +104,8 @@ public abstract class SingleEventSubscriber<T> {
             BiConsumer<SingleEventSubscriber<T>, ? super T> c = (BiConsumer<SingleEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, event);
+            } catch (ClassCastException ignored) {
+
             } catch (Exception ex) {
                 swallowException(event, ex);
             }
@@ -158,7 +162,9 @@ public abstract class SingleEventSubscriber<T> {
             handled++;
         }
         for (BiConsumer<? super T, Throwable> consumer : exceptionBiConsumers) {
-            consumer.accept(event, ex);
+            try {
+                consumer.accept(event, ex);
+            } catch (ClassCastException ignored) {}
             handled++;
         }
 
