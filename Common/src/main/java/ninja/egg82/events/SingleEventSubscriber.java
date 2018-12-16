@@ -121,7 +121,7 @@ public abstract class SingleEventSubscriber<T> {
     private boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends SingleEventSubscriber<T>, T>> biCallList) {
         if (callList != null) {
             for (Predicate<T> predicate : callList) {
-                if (!predicate.test(event)) {
+                if (predicate.test(event)) {
                     expired = true;
                     return true;
                 }
@@ -130,7 +130,7 @@ public abstract class SingleEventSubscriber<T> {
         if (biCallList != null) {
             for (BiPredicate<? extends SingleEventSubscriber<T>, T> predicate : biCallList) {
                 BiPredicate<SingleEventSubscriber<T>, T> p = (BiPredicate<SingleEventSubscriber<T>, T>) predicate;
-                if (!p.test(this, event)) {
+                if (p.test(this, event)) {
                     expired = true;
                     return true;
                 }

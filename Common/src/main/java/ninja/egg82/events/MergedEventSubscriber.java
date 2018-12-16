@@ -114,7 +114,7 @@ public abstract class MergedEventSubscriber<T> {
     protected boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends MergedEventSubscriber<T>, T>> biCallList) {
         if (callList != null) {
             for (Predicate<T> predicate : callList) {
-                if (!predicate.test(event)) {
+                if (predicate.test(event)) {
                     expired = true;
                     return true;
                 }
@@ -123,7 +123,7 @@ public abstract class MergedEventSubscriber<T> {
         if (biCallList != null) {
             for (BiPredicate<? extends MergedEventSubscriber<T>, T> predicate : biCallList) {
                 BiPredicate<MergedEventSubscriber<T>, T> p = (BiPredicate<MergedEventSubscriber<T>, T>) predicate;
-                if (!p.test(this, event)) {
+                if (p.test(this, event)) {
                     expired = true;
                     return true;
                 }
