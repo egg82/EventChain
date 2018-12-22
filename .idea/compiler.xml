@@ -11,6 +11,8 @@
         <module name="event-chain-bukkit" />
         <module name="event-chain-bungee" />
         <module name="event-chain-common" />
+        <module name="event-chain-discord4j" />
+        <module name="event-chain-jda" />
         <module name="event-chain-pi4j" />
         <module name="event-chain-sponge" />
         <module name="event-chain-velocity" />

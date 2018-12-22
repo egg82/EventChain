@@ -22,6 +22,7 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
         }
 
         this.input = input;
+        input.addListener(this);
     }
 
     public <E extends GpioPinDigitalStateChangeEvent> MergedPi4JDigitalEventSubscriber<T> bind(Class<E> event, Function<E, T> function) {
@@ -33,7 +34,6 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
         }
 
         mappings.put(event, (Function<GpioPinDigitalStateChangeEvent, T>) function);
-        input.addListener(this);
 
         return this;
     }
@@ -76,6 +76,8 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
         for (Consumer<? super T> consumer : handlerConsumers) {
             try {
                 consumer.accept(obj);
+            } catch (ClassCastException ignored) {
+
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }
@@ -84,6 +86,8 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
             BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
+            } catch (ClassCastException ignored) {
+
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }
