@@ -7,7 +7,15 @@ This event system allows for many different Minecraft plugin types (not just Buk
 
 # Maven
 
-Maven modules up soon!
+```XML
+<repository>
+    <id>egg82-ninja</id>
+    <url>https://www.myget.org/F/egg82-java/maven/</url>
+</repository>
+```
+
+### Latest Repo
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82.plugins/AntiVPN
 
 # Usage
 
