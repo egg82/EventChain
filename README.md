@@ -15,7 +15,14 @@ This event system allows for many different Minecraft plugin types (not just Buk
 ```
 
 ### Latest Repo
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82.plugins/AntiVPN
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-bukkit
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-bungee
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-common
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-discord4j
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-jda
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-pi4j
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-sponge
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-velocity
 
 # Usage
 
