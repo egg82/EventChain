@@ -39,7 +39,7 @@ public class MergedDiscord4JEventSubscriber<T> extends MergedEventSubscriber<T> 
 
     public void handle(Event e) {
         try {
-            call((T) e);
+            call(e);
         } catch (RuntimeException ex) {
             throw ex;
         } catch (Exception ex) {

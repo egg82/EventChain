@@ -15,6 +15,7 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
 
     public MergedJDAEventSubscriber(JDA jda, Class<T> commonClass) {
         super(commonClass);
+
         if (jda == null) {
             throw new IllegalArgumentException("jda cannot be null.");
         }
@@ -37,12 +38,8 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
     }
 
     public void onEvent(Event e) {
-        if (!e.getClass().isInstance(getCommonClass())) {
-            return;
-        }
-
         try {
-            call((T) e);
+            call(e);
         } catch (RuntimeException ex) {
             throw ex;
         } catch (Exception ex) {

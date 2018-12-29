@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>event-chain-bungee</artifactId>
+    <artifactId>event-chain-kittehirc</artifactId>
     <version>1.0.4</version>
 
     <build>
@@ -50,10 +50,6 @@
 
     <repositories>
         <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-        <repository>
             <id>egg82-ninja</id>
             <url>https://www.myget.org/F/egg82-java/maven/</url>
         </repository>
@@ -61,9 +57,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.13-SNAPSHOT</version>
+            <groupId>org.kitteh.irc</groupId>
+            <artifactId>client-lib</artifactId>
+            <version>4.0.3</version>
             <scope>provided</scope>
         </dependency>
 

@@ -38,6 +38,16 @@ public class MergedPi4JAnalogEventSubscriber<T> extends MergedEventSubscriber<T>
         return this;
     }
 
+    public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent e) {
+        try {
+            call(e);
+        } catch (RuntimeException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not call event handler.", ex);
+        }
+    }
+
     public synchronized void call(GpioPinAnalogValueChangeEvent event) throws Exception {
         if (event == null) {
             throw new IllegalArgumentException("event cannot be null.");
@@ -99,16 +109,6 @@ public class MergedPi4JAnalogEventSubscriber<T> extends MergedEventSubscriber<T>
     public void cancel() {
         super.cancel();
         input.removeListener(this);
-    }
-
-    public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent e) {
-        try {
-            call((T) e);
-        } catch (RuntimeException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not call event handler.", ex);
-        }
     }
 
     public MergedPi4JAnalogEventSubscriber<T> expireAfter(long duration, TimeUnit unit) { return (MergedPi4JAnalogEventSubscriber<T>) super.expireAfter(duration, unit); }

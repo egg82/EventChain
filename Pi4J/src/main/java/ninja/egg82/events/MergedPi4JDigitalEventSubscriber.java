@@ -38,6 +38,16 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
         return this;
     }
 
+    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent e) {
+        try {
+            call(e);
+        } catch (RuntimeException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not call event handler.", ex);
+        }
+    }
+
     public synchronized void call(GpioPinDigitalStateChangeEvent event) throws Exception {
         if (event == null) {
             throw new IllegalArgumentException("event cannot be null.");
@@ -99,16 +109,6 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
     public void cancel() {
         super.cancel();
         input.removeListener(this);
-    }
-
-    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent e) {
-        try {
-            call((T) e);
-        } catch (RuntimeException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not call event handler.", ex);
-        }
     }
 
     public MergedPi4JDigitalEventSubscriber<T> expireAfter(long duration, TimeUnit unit) { return (MergedPi4JDigitalEventSubscriber<T>) super.expireAfter(duration, unit); }

@@ -31,6 +31,8 @@ https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-spon
 
 https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-velocity
 
+https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-kittehirc
+
 # Usage
 
 Usage can be found on Luck's repo here: https://github.com/lucko/helper/wiki/helper:-Events
