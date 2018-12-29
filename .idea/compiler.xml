@@ -13,10 +13,10 @@
         <module name="event-chain-common" />
         <module name="event-chain-discord4j" />
         <module name="event-chain-jda" />
+        <module name="event-chain-kittehirc" />
         <module name="event-chain-pi4j" />
         <module name="event-chain-sponge" />
         <module name="event-chain-velocity" />
-        <module name="KittehIRC" />
       </profile>
     </annotationProcessing>
   </component>

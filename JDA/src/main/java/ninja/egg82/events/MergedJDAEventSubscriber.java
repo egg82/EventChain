@@ -58,7 +58,6 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
 
         Function<Event, T> mapping = mappings.get(event.getClass());
         if (mapping == null) {
-            swallowException(null, new Exception("mapping does not exist for event class \"" + event.getClass() + "\"."));
             return;
         }
 

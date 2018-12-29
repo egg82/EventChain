@@ -59,7 +59,6 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
 
         Function<GpioPinDigitalStateChangeEvent, T> mapping = mappings.get(event.getClass());
         if (mapping == null) {
-            swallowException(null, new Exception("mapping does not exist for event class \"" + event.getClass() + "\"."));
             return;
         }
 
