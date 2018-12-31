@@ -25,7 +25,7 @@ public class KittehEventSubscriber<T extends ClientEvent> extends SingleEventSub
 
     @Handler
     public void onAnyEvent(ClientEvent e) {
-        if (!e.getClass().isInstance(getEventClass())) {
+        if (!e.getClass().equals(getEventClass()) && !e.getClass().isInstance(getEventClass())) {
             return;
         }
 

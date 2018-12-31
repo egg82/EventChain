@@ -10,10 +10,10 @@ import net.md_5.bungee.api.plugin.Plugin;
 import ninja.egg82.events.internal.BungeeAllEventsListener;
 
 public class BungeeEventSubscriber<T extends Event> extends SingleEventSubscriber<T> {
-    private byte priority;
+    private final byte priority;
 
-    private Plugin plugin;
-    private BungeeAllEventsListener listener;
+    private final Plugin plugin;
+    private final BungeeAllEventsListener<T> listener;
 
     public BungeeEventSubscriber(Plugin plugin, Class<T> event, byte priority) {
         super(event);
@@ -25,7 +25,7 @@ public class BungeeEventSubscriber<T extends Event> extends SingleEventSubscribe
         this.priority = priority;
         this.plugin = plugin;
 
-        listener = new BungeeAllEventsListener(this);
+        listener = new BungeeAllEventsListener<>(this);
         plugin.getProxy().getPluginManager().registerListener(plugin, listener);
     }
 

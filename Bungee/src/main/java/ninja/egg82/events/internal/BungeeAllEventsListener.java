@@ -22,38 +22,6 @@ public class BungeeAllEventsListener<E extends Event> implements Listener {
         this.mergedEventSubscriber = eventSubscriber;
     }
 
-    // generic events
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onAsyncHighest(AsyncEvent<?> e) { onAnyEvent(EventPriority.HIGHEST, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onAsyncHigh(AsyncEvent<?> e) { onAnyEvent(EventPriority.HIGH, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onAsync(AsyncEvent<?> e) { onAnyEvent(EventPriority.NORMAL, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.LOW)
-    public void onAsyncLow(AsyncEvent<?> e) { onAnyEvent(EventPriority.LOW, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onAsyncLowest(AsyncEvent<?> e) { onAnyEvent(EventPriority.LOWEST, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onGenericHighest(Event e) { onAnyEvent(EventPriority.HIGHEST, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onGenericHigh(Event e) { onAnyEvent(EventPriority.HIGH, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onGeneric(Event e) { onAnyEvent(EventPriority.NORMAL, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.LOW)
-    public void onGenericLow(Event e) { onAnyEvent(EventPriority.LOW, e, e.getClass()); }
-
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onGenericLowest(Event e) { onAnyEvent(EventPriority.LOWEST, e, e.getClass()); }
-
-    /*
     // player events
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPreLoginHighest(PreLoginEvent e) {
@@ -508,22 +476,21 @@ public class BungeeAllEventsListener<E extends Event> implements Listener {
     public void onTargetedLowest(TargetedEvent e) {
         onAnyEvent(EventPriority.LOWEST, e, e.getClass());
     }
-    */
 
     private <S extends Event> void onAnyEvent(byte priority, S event, Class<? extends Event> clazz) {
         if (singleEventSubscriber != null) {
-            if (clazz.equals(singleEventSubscriber.getEventClass())) {
-                try {
-                    singleEventSubscriber.call((E) event, priority);
-                } catch (RuntimeException ex) {
-                    throw ex;
-                } catch (Exception ex) {
-                    throw new RuntimeException("Could not call event handler.", ex);
-                }
+            if (!clazz.equals(singleEventSubscriber.getEventClass()) && !clazz.isInstance(singleEventSubscriber.getEventClass())) {
+                return;
             }
-            return;
-        }
-        if (mergedEventSubscriber != null && mergedEventSubscriber.getEventClasses().contains(clazz)) {
+
+            try {
+                singleEventSubscriber.call((E) event, priority);
+            } catch (RuntimeException ex) {
+                throw ex;
+            } catch (Exception ex) {
+                throw new RuntimeException("Could not call event handler.", ex);
+            }
+        } else if (mergedEventSubscriber != null) {
             try {
                 mergedEventSubscriber.call(event, priority);
             } catch (RuntimeException ex) {

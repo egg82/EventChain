@@ -24,7 +24,7 @@ public class JDAEventSubscriber<T extends Event> extends SingleEventSubscriber<T
     }
 
     public void onEvent(Event e) {
-        if (!e.getClass().isInstance(getEventClass())) {
+        if (!e.getClass().equals(getEventClass()) && !e.getClass().isInstance(getEventClass())) {
             return;
         }
 
