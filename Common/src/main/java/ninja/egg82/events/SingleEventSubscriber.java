@@ -94,8 +94,6 @@ public abstract class SingleEventSubscriber<T> {
         for (Consumer<? super T> consumer : handlerConsumers) {
             try {
                 consumer.accept(event);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(event, ex);
             }
@@ -104,8 +102,6 @@ public abstract class SingleEventSubscriber<T> {
             BiConsumer<SingleEventSubscriber<T>, ? super T> c = (BiConsumer<SingleEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, event);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(event, ex);
             }
@@ -118,10 +114,19 @@ public abstract class SingleEventSubscriber<T> {
         cancelled = true;
     }
 
-    private boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends SingleEventSubscriber<T>, T>> biCallList) {
+    private boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends SingleEventSubscriber<T>, T>> biCallList) throws Exception {
         if (callList != null) {
             for (Predicate<T> predicate : callList) {
-                if (predicate.test(event)) {
+                boolean test;
+
+                try {
+                    test = predicate.test(event);
+                } catch (Exception ex) {
+                    swallowException(event, ex);
+                    continue;
+                }
+
+                if (test) {
                     expired = true;
                     return true;
                 }
@@ -130,7 +135,17 @@ public abstract class SingleEventSubscriber<T> {
         if (biCallList != null) {
             for (BiPredicate<? extends SingleEventSubscriber<T>, T> predicate : biCallList) {
                 BiPredicate<SingleEventSubscriber<T>, T> p = (BiPredicate<SingleEventSubscriber<T>, T>) predicate;
-                if (p.test(this, event)) {
+
+                boolean test;
+
+                try {
+                    test = p.test(this, event);
+                } catch (Exception ex) {
+                    swallowException(event, ex);
+                    continue;
+                }
+
+                if (test) {
                     expired = true;
                     return true;
                 }
@@ -139,15 +154,34 @@ public abstract class SingleEventSubscriber<T> {
         return false;
     }
 
-    private boolean filter(T event) {
+    private boolean filter(T event) throws Exception {
         for (Predicate<T> predicate : filterPredicates) {
-            if (!predicate.test(event)) {
+            boolean test;
+
+            try {
+                test = predicate.test(event);
+            } catch (Exception ex) {
+                swallowException(event, ex);
+                continue;
+            }
+
+            if (!test) {
                 return true;
             }
         }
         for (BiPredicate<? extends SingleEventSubscriber<T>, T> predicate : filterBiPredicates) {
             BiPredicate<SingleEventSubscriber<T>, T> p = (BiPredicate<SingleEventSubscriber<T>, T>) predicate;
-            if (!p.test(this, event)) {
+
+            boolean test;
+
+            try {
+                test = p.test(this, event);
+            } catch (Exception ex) {
+                swallowException(event, ex);
+                continue;
+            }
+
+            if (!test) {
                 return true;
             }
         }
@@ -162,9 +196,7 @@ public abstract class SingleEventSubscriber<T> {
             handled++;
         }
         for (BiConsumer<? super T, Throwable> consumer : exceptionBiConsumers) {
-            try {
-                consumer.accept(event, ex);
-            } catch (ClassCastException ignored) {}
+            consumer.accept(event, ex);
             handled++;
         }
 

@@ -85,8 +85,6 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
         for (Consumer<? super T> consumer : handlerConsumers) {
             try {
                 consumer.accept(obj);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }
@@ -95,8 +93,6 @@ public class MergedPi4JDigitalEventSubscriber<T> extends MergedEventSubscriber<T
             BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }

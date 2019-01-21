@@ -111,10 +111,19 @@ public abstract class MergedEventSubscriber<T> {
         cancelled = true;
     }
 
-    protected boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends MergedEventSubscriber<T>, T>> biCallList) {
+    protected boolean expire(T event, List<Predicate<T>> callList, List<BiPredicate<? extends MergedEventSubscriber<T>, T>> biCallList) throws Exception {
         if (callList != null) {
             for (Predicate<T> predicate : callList) {
-                if (predicate.test(event)) {
+                boolean test;
+
+                try {
+                    test = predicate.test(event);
+                } catch (Exception ex) {
+                    swallowException(event, ex);
+                    continue;
+                }
+
+                if (test) {
                     expired = true;
                     return true;
                 }
@@ -123,7 +132,16 @@ public abstract class MergedEventSubscriber<T> {
         if (biCallList != null) {
             for (BiPredicate<? extends MergedEventSubscriber<T>, T> predicate : biCallList) {
                 BiPredicate<MergedEventSubscriber<T>, T> p = (BiPredicate<MergedEventSubscriber<T>, T>) predicate;
-                if (p.test(this, event)) {
+                boolean test;
+
+                try {
+                    test = p.test(this, event);
+                } catch (Exception ex) {
+                    swallowException(event, ex);
+                    continue;
+                }
+
+                if (test) {
                     expired = true;
                     return true;
                 }
@@ -132,15 +150,34 @@ public abstract class MergedEventSubscriber<T> {
         return false;
     }
 
-    protected boolean filter(T event) {
+    protected boolean filter(T event) throws Exception {
         for (Predicate<T> predicate : filterPredicates) {
-            if (!predicate.test(event)) {
+            boolean test;
+
+            try {
+                test = predicate.test(event);
+            } catch (Exception ex) {
+                swallowException(event, ex);
+                continue;
+            }
+
+            if (!test) {
                 return true;
             }
         }
         for (BiPredicate<? extends MergedEventSubscriber<T>, T> predicate : filterBiPredicates) {
             BiPredicate<MergedEventSubscriber<T>, T> p = (BiPredicate<MergedEventSubscriber<T>, T>) predicate;
-            if (!p.test(this, event)) {
+
+            boolean test;
+
+            try {
+                test = p.test(this, event);
+            } catch (Exception ex) {
+                swallowException(event, ex);
+                continue;
+            }
+
+            if (!test) {
                 return true;
             }
         }

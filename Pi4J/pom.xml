@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>event-chain-pi4j</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>ninja.egg82</groupId>
             <artifactId>event-chain-common</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7</version>
         </dependency>
 
         <dependency>

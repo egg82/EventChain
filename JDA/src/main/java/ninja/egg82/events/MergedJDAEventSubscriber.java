@@ -84,8 +84,6 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
         for (Consumer<? super T> consumer : handlerConsumers) {
             try {
                 consumer.accept(obj);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }
@@ -94,8 +92,6 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
             BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
-            } catch (ClassCastException ignored) {
-
             } catch (Exception ex) {
                 swallowException(obj, ex);
             }
