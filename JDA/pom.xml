@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>event-chain-jda</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -64,20 +64,20 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.8.1_437</version>
+            <version>3.8.3_462</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>ninja.egg82</groupId>
             <artifactId>event-chain-common</artifactId>
-            <version>1.0.7</version>
+            <version>1.0.8</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.1</version>
+            <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
