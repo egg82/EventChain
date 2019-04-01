@@ -66,6 +66,11 @@ public abstract class MergedEventSubscriber<T> {
             throw new IllegalArgumentException("event cannot be null.");
         }
 
+        // This is dumb, but necessary
+        if (!this.commonClass.isInstance(event)) {
+            return;
+        }
+
         if (cancelled) {
             return;
         }

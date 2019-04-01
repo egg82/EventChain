@@ -11,12 +11,12 @@
         <module name="event-chain-jda" />
         <module name="event-chain-velocity" />
         <module name="Common" />
+        <module name="Bukkit" />
         <module name="event-chain-common" />
-        <module name="event-chain-pi4j" />
+        <module name="event-chain-kittehirc" />
         <module name="event-chain-discord4j" />
         <module name="event-chain-sponge" />
-        <module name="Bukkit" />
-        <module name="event-chain-kittehirc" />
+        <module name="event-chain-pi4j" />
       </profile>
     </annotationProcessing>
   </component>

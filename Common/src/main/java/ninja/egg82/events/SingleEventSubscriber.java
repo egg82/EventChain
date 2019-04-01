@@ -69,6 +69,11 @@ public abstract class SingleEventSubscriber<T> {
             throw new IllegalArgumentException("event cannot be null.");
         }
 
+        // This is dumb, but necessary
+        if (!this.event.isInstance(event)) {
+            return;
+        }
+
         if (cancelled) {
             return;
         }
