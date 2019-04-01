@@ -6,17 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Bukkit" />
-        <module name="Common" />
         <module name="event-chain-bukkit" />
         <module name="event-chain-bungee" />
-        <module name="event-chain-common" />
-        <module name="event-chain-discord4j" />
         <module name="event-chain-jda" />
-        <module name="event-chain-kittehirc" />
-        <module name="event-chain-pi4j" />
-        <module name="event-chain-sponge" />
         <module name="event-chain-velocity" />
+        <module name="Common" />
+        <module name="event-chain-common" />
+        <module name="event-chain-pi4j" />
+        <module name="event-chain-discord4j" />
+        <module name="event-chain-sponge" />
+        <module name="Bukkit" />
+        <module name="event-chain-kittehirc" />
       </profile>
     </annotationProcessing>
   </component>

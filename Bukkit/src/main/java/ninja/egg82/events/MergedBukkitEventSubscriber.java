@@ -9,14 +9,14 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 
 public class MergedBukkitEventSubscriber<T> extends MergedEventSubscriber<T> implements Listener {
-    private JavaPlugin plugin;
+    private Plugin plugin;
 
     private ConcurrentMap<Class<? extends Event>, BukkitHandlerMapping<T>> mappings = new ConcurrentHashMap<>();
 
-    public MergedBukkitEventSubscriber(JavaPlugin plugin, Class<T> commonClass) {
+    public MergedBukkitEventSubscriber(Plugin plugin, Class<T> commonClass) {
         super(commonClass);
 
         if (plugin == null) {

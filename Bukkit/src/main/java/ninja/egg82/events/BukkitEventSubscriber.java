@@ -9,12 +9,12 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 
 public class BukkitEventSubscriber<T extends Event> extends SingleEventSubscriber<T> implements Listener {
     private EventPriority priority;
 
-    public BukkitEventSubscriber(JavaPlugin plugin, Class<T> event, EventPriority priority) {
+    public BukkitEventSubscriber(Plugin plugin, Class<T> event, EventPriority priority) {
         super(event);
 
         if (plugin == null) {

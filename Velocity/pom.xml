@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>event-chain-velocity</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -18,7 +18,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -28,7 +28,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -70,13 +70,13 @@
         <dependency>
             <groupId>ninja.egg82</groupId>
             <artifactId>event-chain-common</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.9</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.0</version>
+            <version>5.5.0-M1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
