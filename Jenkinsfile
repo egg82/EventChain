@@ -17,4 +17,9 @@ pipeline {
             }
         }
     }
+	post {
+        always {
+            archiveArtifacts artifacts: '**/target/event-chain-*.jar', fingerprint: true
+        }
+    }
 }
