@@ -4,14 +4,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.*;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
 
 public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implements EventListener {
     private final JDA jda;
 
-    private ConcurrentMap<Class<? extends Event>, Function<Event, T>> mappings = new ConcurrentHashMap<>();
+    private ConcurrentMap<Class<? extends GenericEvent>, Function<GenericEvent, T>> mappings = new ConcurrentHashMap<>();
 
     public MergedJDAEventSubscriber(JDA jda, Class<T> commonClass) {
         super(commonClass);
@@ -24,7 +24,7 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
         jda.addEventListener(this);
     }
 
-    public <E extends Event> MergedJDAEventSubscriber<T> bind(Class<E> event, Function<E, T> function) {
+    public <E extends GenericEvent> MergedJDAEventSubscriber<T> bind(Class<E> event, Function<E, T> function) {
         if (event == null) {
             throw new IllegalArgumentException("handler cannot be null.");
         }
@@ -32,12 +32,12 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
             throw new IllegalArgumentException("function cannot be null.");
         }
 
-        mappings.put(event, (Function<Event, T>) function);
+        mappings.put(event, (Function<GenericEvent, T>) function);
 
         return this;
     }
 
-    public void onEvent(Event e) {
+    public void onEvent(GenericEvent e) {
         try {
             call(e);
         } catch (RuntimeException ex) {
@@ -47,7 +47,7 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
         }
     }
 
-    public synchronized void call(Event event) throws Exception {
+    public synchronized void call(GenericEvent event) throws Exception {
         if (event == null) {
             throw new IllegalArgumentException("event cannot be null.");
         }
@@ -56,7 +56,7 @@ public class MergedJDAEventSubscriber<T> extends MergedEventSubscriber<T> implem
             return;
         }
 
-        Function<Event, T> mapping = mappings.get(event.getClass());
+        Function<GenericEvent, T> mapping = mappings.get(event.getClass());
         if (mapping == null) {
             return;
         }

@@ -5,11 +5,11 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
 
-public class JDAEventSubscriber<T extends Event> extends SingleEventSubscriber<T> implements EventListener {
+public class JDAEventSubscriber<T extends GenericEvent> extends SingleEventSubscriber<T> implements EventListener {
     private final JDA jda;
 
     public JDAEventSubscriber(JDA jda, Class<T> event) {
@@ -23,7 +23,7 @@ public class JDAEventSubscriber<T extends Event> extends SingleEventSubscriber<T
         jda.addEventListener(this);
     }
 
-    public void onEvent(Event e) {
+    public void onEvent(GenericEvent e) {
         if (!e.getClass().equals(getEventClass()) && !e.getClass().isInstance(getEventClass())) {
             return;
         }

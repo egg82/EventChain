@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>event-chain-jda</artifactId>
-    <version>1.0.9</version>
+    <version>1.1.10</version>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -18,7 +18,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -50,13 +50,9 @@
 
     <repositories>
         <repository>
-            <id>egg82-ninja</id>
-            <url>https://www.myget.org/F/egg82-java/maven/</url>
-        </repository>
-        <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
-            <url>http://jcenter.bintray.com</url>
+            <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
@@ -64,20 +60,20 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.8.3_462</version>
+            <version>4.1.1_141</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>ninja.egg82</groupId>
             <artifactId>event-chain-common</artifactId>
-            <version>1.0.9</version>
+            <version>1.1.10</version>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.0-M1</version>
+            <version>5.7.0-M1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
