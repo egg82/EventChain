@@ -9,29 +9,22 @@ This event system allows for many different Minecraft plugin types (not just Buk
 
 ```XML
 <repository>
-    <id>egg82-ninja</id>
-    <url>https://www.myget.org/F/egg82-java/maven/</url>
+    <id>egg82-proxy</id>
+    <url>https://www.myget.org/F/egg82-proxy/maven/</url>
+</repository>
+```
+
+- OR -
+
+```XML
+<repository>
+    <id>egg82-nexus</id>
+    <url>https://nexus.egg82.me/repository/maven-releases/</url>
 </repository>
 ```
 
 ### Latest Repo
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-bukkit
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-bungee
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-common
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-discord4j
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-jda
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-pi4j
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-sponge
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-velocity
-
-https://www.myget.org/feed/egg82-java/package/maven/ninja.egg82/event-chain-kittehirc
+https://nexus.egg82.me/#browse/browse:maven-releases
 
 # Usage
 
