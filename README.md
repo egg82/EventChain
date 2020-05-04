@@ -14,7 +14,7 @@ This event system allows for many different Minecraft plugin types (not just Buk
 </repository>
 ```
 
-- OR -
+##### - OR -
 
 ```XML
 <repository>
