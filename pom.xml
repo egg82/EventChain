@@ -9,6 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <eventchain.version>1.1.10</eventchain.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -74,6 +80,63 @@
             <url>https://nexus.egg82.me/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ninja.egg82</groupId>
+                <artifactId>event-chain-common</artifactId>
+                <version>${eventchain.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.7.0-M1</version>
+            </dependency>
+
+            <!-- Bukkit -->
+            <dependency>
+                <groupId>org.bukkit</groupId>
+                <artifactId>bukkit</artifactId>
+                <version>1.8-R0.1-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Bungee -->
+            <dependency>
+                <groupId>net.md-5</groupId>
+                <artifactId>bungeecord-api</artifactId>
+                <version>1.8-SNAPSHOT</version>
+            </dependency>
+
+            <!-- JDA -->
+            <dependency>
+                <groupId>net.dv8tion</groupId>
+                <artifactId>JDA</artifactId>
+                <version>4.1.1_141</version>
+            </dependency>
+
+            <!-- KittehIRC -->
+            <dependency>
+                <groupId>org.kitteh.irc</groupId>
+                <artifactId>client-lib</artifactId>
+                <version>7.2.2</version>
+            </dependency>
+
+            <!-- Sponge -->
+            <dependency>
+                <groupId>org.spongepowered</groupId>
+                <artifactId>spongeapi</artifactId>
+                <version>7.2.0</version>
+            </dependency>
+
+            <!-- Velocity -->
+            <dependency>
+                <groupId>com.velocitypowered</groupId>
+                <artifactId>velocity-api</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <modules>
         <module>Common</module>
