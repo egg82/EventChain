@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 
-public class MergedPi4JAnalogEventSubscriber<T> extends MergedEventSubscriber<T> implements GpioPinListenerAnalog {
+public class MergedPi4JAnalogEventSubscriber<T> extends AbstractMergedPriorityEventSubscriber<T> implements GpioPinListenerAnalog {
     private final GpioPinAnalogInput input;
 
     private ConcurrentMap<Class<? extends GpioPinAnalogValueChangeEvent>, Function<GpioPinAnalogValueChangeEvent, T>> mappings = new ConcurrentHashMap<>();
@@ -89,8 +89,8 @@ public class MergedPi4JAnalogEventSubscriber<T> extends MergedEventSubscriber<T>
                 swallowException(obj, ex);
             }
         }
-        for (BiConsumer<? extends MergedEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
-            BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
+        for (BiConsumer<? extends AbstractMergedPriorityEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
+            BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T> c = (BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
             } catch (Exception ex) {

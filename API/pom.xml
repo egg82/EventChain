@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>event-chain-jda</artifactId>
-    <version>${eventchain.version}</version>
+    <artifactId>event-chain-api</artifactId>
+    <version>${api.version}</version>
 
     <build>
         <resources>
@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.3</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -62,10 +62,6 @@
                         <configuration>
                             <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                             <minimizeJar>false</minimizeJar>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.PluginXmlResourceTransformer"/>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
@@ -74,31 +70,10 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>jcenter</id>
-            <name>jcenter-bintray</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
+
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>${jda.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>event-chain-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>event-chain-api</artifactId>
-        </dependency>
-
-        <!-- API -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>

@@ -6,20 +6,24 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 import ninja.egg82.events.BungeeEventSubscriber;
-import ninja.egg82.events.MergedBungeeEventSubscriber;
+import ninja.egg82.events.BungeeMergedEventSubscriber;
+import ninja.egg82.events.PriorityEventException;
 
 public class BungeeAllEventsListener<E extends Event> implements Listener {
-    private BungeeEventSubscriber<E> singleEventSubscriber;
-    private MergedBungeeEventSubscriber<?> mergedEventSubscriber;
+    private final BungeeEventSubscriber<E> singleEventSubscriber;
+    private final BungeeMergedEventSubscriber<E, ?> mergedEventSubscriber;
+    private final byte priority;
 
-    public BungeeAllEventsListener(BungeeEventSubscriber<E> eventSubscriber) {
+    public BungeeAllEventsListener(BungeeEventSubscriber<E> eventSubscriber, byte priority) {
         this.singleEventSubscriber = eventSubscriber;
         this.mergedEventSubscriber = null;
+        this.priority = priority;
     }
 
-    public <T> BungeeAllEventsListener(MergedBungeeEventSubscriber<T> eventSubscriber) {
+    public <T> BungeeAllEventsListener(BungeeMergedEventSubscriber<E, T> eventSubscriber, byte priority) {
         this.singleEventSubscriber = null;
         this.mergedEventSubscriber = eventSubscriber;
+        this.priority = priority;
     }
 
     // player events
@@ -478,25 +482,25 @@ public class BungeeAllEventsListener<E extends Event> implements Listener {
     }
 
     private <S extends Event> void onAnyEvent(byte priority, S event, Class<? extends Event> clazz) {
+        if (priority != this.priority) {
+            return;
+        }
+
         if (singleEventSubscriber != null) {
-            if (!clazz.equals(singleEventSubscriber.getEventClass()) && !clazz.isInstance(singleEventSubscriber.getEventClass())) {
+            if (!clazz.isInstance(singleEventSubscriber.getBaseClass())) {
                 return;
             }
 
             try {
                 singleEventSubscriber.call((E) event, priority);
-            } catch (RuntimeException ex) {
-                throw ex;
-            } catch (Exception ex) {
-                throw new RuntimeException("Could not call event handler.", ex);
+            } catch (PriorityEventException ex) {
+                throw new RuntimeException("Could not call event subscriber.", ex);
             }
         } else if (mergedEventSubscriber != null) {
             try {
-                mergedEventSubscriber.call(event, priority);
-            } catch (RuntimeException ex) {
-                throw ex;
-            } catch (Exception ex) {
-                throw new RuntimeException("Could not call event handler.", ex);
+                mergedEventSubscriber.callMerged(event, priority);
+            } catch (PriorityEventException ex) {
+                throw new RuntimeException("Could not call event subscriber.", ex);
             }
         }
     }

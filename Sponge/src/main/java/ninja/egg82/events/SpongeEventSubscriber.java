@@ -10,7 +10,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
 
-public class SpongeEventSubscriber<T extends Event> extends SingleEventSubscriber<T> {
+public class SpongeEventSubscriber<T extends Event> extends AbstractSingleEventSubscriber<T> {
     private Order order;
 
     private EventListener<? super T> listener;

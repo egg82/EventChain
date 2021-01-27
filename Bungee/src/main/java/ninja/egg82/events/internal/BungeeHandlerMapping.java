@@ -2,17 +2,10 @@ package ninja.egg82.events.internal;
 
 import java.util.function.Function;
 import net.md_5.bungee.api.plugin.Event;
+import org.jetbrains.annotations.NotNull;
 
-public class BungeeHandlerMapping<T> {
-    private byte priority;
-    private Function<Event, T> function;
-
-    public BungeeHandlerMapping(byte priority, Function<Event, T> function) {
-        this.priority = priority;
-        this.function = function;
+public class BungeeHandlerMapping<E extends Event, T> extends AbstractPriorityHandlerMapping<Byte, E, T> {
+    public BungeeHandlerMapping(byte priority, @NotNull Function<E, T> function) {
+        super(priority, function);
     }
-
-    public Function<Event, T> getFunction() { return function; }
-
-    public byte getPriority() { return priority; }
 }

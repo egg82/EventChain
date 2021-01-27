@@ -9,7 +9,7 @@ import net.engio.mbassy.listener.Handler;
 import org.kitteh.irc.client.library.Client;
 import org.kitteh.irc.client.library.event.helper.ClientEvent;
 
-public class KittehEventSubscriber<T extends ClientEvent> extends SingleEventSubscriber<T> {
+public class KittehEventSubscriber<T extends ClientEvent> extends AbstractSingleEventSubscriber<T> {
     private final Client client;
 
     public KittehEventSubscriber(Client client, Class<T> event) {

@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class VelocityEventSubscriber<T> extends SingleEventSubscriber<T> {
+public class VelocityEventSubscriber<T> extends AbstractSingleEventSubscriber<T> {
     private PostOrder order;
 
     private Object plugin;

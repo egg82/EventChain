@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 import ninja.egg82.events.internal.VelocityHandlerMapping;
 
-public class MergedVelocityEventSubscriber<T> extends MergedEventSubscriber<T> {
+public class MergedVelocityEventSubscriber<T> extends AbstractMergedPriorityEventSubscriber<T> {
     private ConcurrentMap<Class<?>, VelocityHandlerMapping<T>> mappings = new ConcurrentHashMap<>();
     private List<EventHandler<?>> handlers = new CopyOnWriteArrayList<>();
 
@@ -110,8 +110,8 @@ public class MergedVelocityEventSubscriber<T> extends MergedEventSubscriber<T> {
                 swallowException(obj, ex);
             }
         }
-        for (BiConsumer<? extends MergedEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
-            BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
+        for (BiConsumer<? extends AbstractMergedPriorityEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
+            BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T> c = (BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
             } catch (Exception ex) {

@@ -10,7 +10,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> extends SingleEventSubscriber<T> implements GpioPinListenerAnalog {
+public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> extends AbstractSingleEventSubscriber<T> implements GpioPinListenerAnalog {
     private final GpioPinAnalogInput input;
 
     public Pi4JAnalogEventSubscriber(GpioPinAnalogInput input, Class<T> event) {

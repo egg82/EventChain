@@ -12,7 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <eventchain.version>1.1.11</eventchain.version>
+        <eventchain.version>2.0.0</eventchain.version>
+        <api.version>1.0.0</api.version>
 
         <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
         <bungee.version>1.8-SNAPSHOT</bungee.version>
@@ -128,6 +129,11 @@
         <dependencies>
             <dependency>
                 <groupId>ninja.egg82</groupId>
+                <artifactId>event-chain-api</artifactId>
+                <version>${api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ninja.egg82</groupId>
                 <artifactId>event-chain-common</artifactId>
                 <version>${eventchain.version}</version>
             </dependency>
@@ -135,6 +141,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>API</module>
         <module>Common</module>
         <module>Bukkit</module>
         <module>Bungee</module>

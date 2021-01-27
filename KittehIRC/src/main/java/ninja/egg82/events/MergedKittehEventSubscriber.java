@@ -8,7 +8,7 @@ import net.engio.mbassy.listener.Handler;
 import org.kitteh.irc.client.library.Client;
 import org.kitteh.irc.client.library.event.helper.ClientEvent;
 
-public class MergedKittehEventSubscriber<T> extends MergedEventSubscriber<T> {
+public class MergedKittehEventSubscriber<T> extends AbstractMergedPriorityEventSubscriber<T> {
     private final Client client;
 
     private ConcurrentMap<Class<? extends ClientEvent>, Function<ClientEvent, T>> mappings = new ConcurrentHashMap<>();
@@ -89,8 +89,8 @@ public class MergedKittehEventSubscriber<T> extends MergedEventSubscriber<T> {
                 swallowException(obj, ex);
             }
         }
-        for (BiConsumer<? extends MergedEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
-            BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
+        for (BiConsumer<? extends AbstractMergedPriorityEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
+            BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T> c = (BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
             } catch (Exception ex) {

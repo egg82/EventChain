@@ -12,7 +12,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
 
-public class MergedSpongeEventSubscriber<T> extends MergedEventSubscriber<T> {
+public class MergedSpongeEventSubscriber<T> extends AbstractMergedPriorityEventSubscriber<T> {
     private Object plugin;
 
     private ConcurrentMap<Class<? extends Event>, SpongeHandlerMapping<T>> mappings = new ConcurrentHashMap<>();
@@ -109,8 +109,8 @@ public class MergedSpongeEventSubscriber<T> extends MergedEventSubscriber<T> {
                 swallowException(obj, ex);
             }
         }
-        for (BiConsumer<? extends MergedEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
-            BiConsumer<MergedEventSubscriber<T>, ? super T> c = (BiConsumer<MergedEventSubscriber<T>, ? super T>) consumer;
+        for (BiConsumer<? extends AbstractMergedPriorityEventSubscriber<T>, ? super T> consumer : handlerBiConsumers) {
+            BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T> c = (BiConsumer<AbstractMergedPriorityEventSubscriber<T>, ? super T>) consumer;
             try {
                 c.accept(this, obj);
             } catch (Exception ex) {
