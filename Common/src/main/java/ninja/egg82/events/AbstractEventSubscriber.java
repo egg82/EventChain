@@ -143,7 +143,11 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
         return this;
     }
 
-    protected final boolean tryExpire(@NotNull T event, @NotNull List<BiPredicate<AbstractEventSubscriber<E, T>, T>> biCallList, @NotNull SubscriberStage stage) throws EventException {
+    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractEventSubscriber<E, T>, T>> biCallList, @NotNull SubscriberStage stage) throws EventException {
+        if (biCallList == null) {
+            return false;
+        }
+
         for (BiPredicate<AbstractEventSubscriber<E, T>, T> predicate : biCallList) {
             try {
                 if (predicate.test(this, event)) {

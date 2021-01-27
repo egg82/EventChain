@@ -143,7 +143,11 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
         return this;
     }
 
-    protected final boolean tryExpire(@NotNull T event, @NotNull List<BiPredicate<AbstractPriorityEventSubscriber<P, T>, T>> biCallList, @NotNull SubscriberStage stage) throws PriorityEventException {
+    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractPriorityEventSubscriber<P, T>, T>> biCallList, @NotNull SubscriberStage stage) throws PriorityEventException {
+        if (biCallList == null) {
+            return false;
+        }
+
         for (BiPredicate<AbstractPriorityEventSubscriber<P, T>, T> predicate : biCallList) {
             try {
                 if (predicate.test(this, event)) {

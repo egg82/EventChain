@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <eventchain.version>2.0.0</eventchain.version>
+        <eventchain.version>2.0.1</eventchain.version>
         <api.version>1.0.0</api.version>
 
         <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
