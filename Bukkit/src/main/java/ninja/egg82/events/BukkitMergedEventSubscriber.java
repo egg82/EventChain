@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<EventPriority, E1, T> implements Listener {
     private final Plugin plugin;
 
-    public BukkitMergedEventSubscriber(@NotNull Plugin plugin, Class<T> superclass) {
+    public BukkitMergedEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> superclass) {
         super(superclass);
 
         this.plugin = plugin;
