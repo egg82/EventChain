@@ -5,29 +5,92 @@ Originally developed by Luck @ https://github.com/lucko/helper - the event syste
 
 This event system allows for many different Minecraft plugin types (not just Bukkit) as well as the ability to create completely new and custom ones.
 
-# Maven
+## Maven
 
 ```XML
-<repository>
-    <id>egg82-proxy</id>
-    <url>https://www.myget.org/F/egg82-proxy/maven/</url>
-</repository>
-```
-
-##### - OR -
-
-```XML
-<repository>
+<repositories>
+  <repository>
     <id>egg82-nexus</id>
     <url>https://nexus.egg82.me/repository/maven-releases/</url>
-</repository>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>ninja.egg82</groupId>
+    <artifactId>event-chain-api</artifactId>
+    <version>LATEST-VERSION</version>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>ninja.egg82</groupId>
+    <artifactId>event-chain-TYPE</artifactId>
+    <version>LATEST-VERSION</version>
+  </dependency>
+</dependencies>
 ```
 
-### Latest Repo
-https://nexus.egg82.me/#browse/browse:maven-releases
+Link to the latest version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
+Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
-# Usage
+## Gradle
+```Gradle
+repositories {
+    maven {
+        url 'https://nexus.egg82.me/repository/maven-releases/'
+    }
+}
 
-Usage can be found on Luck's repo here: https://github.com/lucko/helper/wiki/helper:-Events
+dependencies {
+    compileOnly 'ninja.egg82:event-chain-api:LATEST-VERSION'
+    compileOnly 'ninja.egg82:event-chain-TYPE:LATEST-VERSION'
+}
+```
 
-The concept (and usage) is essentially the same with some minor tweaks which can be discovered simply by using your IDE's auto-complete.
+## Examples
+
+### Bukkit
+```Java
+BukkitEvents.subscribe(plugin, PlayerLoginEvent.class, EventPriority.MONITOR)
+  .filter(e -> e.getResult() == PlayerLoginEvent.Result.ALLOWED)
+  .filter(e -> !Bukkit.hasWhitelist() || e.getPlayer().isWhitelisted())
+  .handler(e -> {
+    BukkitPlatform.addUniquePlayer(e.getPlayer().getUniqueId());
+    String ip = getIp(e.getAddress());
+    if (ip != null) {
+      try {
+        BukkitPlatform.addUniqueIp(InetAddress.getByName(ip));
+      } catch (UnknownHostException ex) {
+        logger.warn("Could not create InetAddress for " + ip);
+      }
+    }
+});
+```
+
+### Bungee
+```Java
+BungeeEvents.subscribe(plugin, PostLoginEvent.class, EventPriority.HIGHEST)
+  .handler(e -> {
+    BungeePlatform.addUniquePlayer(e.getPlayer().getUniqueId());
+    try {
+      BungeePlatform.addUniqueIp(InetAddress.getByName(getIp(e.getPlayer().getAddress())));
+    } catch (UnknownHostException ex) {
+      logger.warn("Could not create InetAddress for " + getIp(e.getPlayer().getAddress()));
+    }
+});
+```
+
+### Velocity
+```Java
+VelocityEvents.subscribe(plugin, proxy, PostLoginEvent.class, PostOrder.LAST)
+  .handler(e -> {
+    VelocityPlatform.addUniquePlayer(e.getPlayer().getUniqueId());
+    try {
+      VelocityPlatform.addUniqueIp(InetAddress.getByName(getIp(e.getPlayer().getRemoteAddress())));
+    } catch (UnknownHostException ex) {
+      logger.warn("Could not create InetAddress for " + getIp(e.getPlayer().getRemoteAddress()));
+    }
+});
+```
+
+Luck's repo for reference [here](https://github.com/lucko/helper/wiki/helper:-Events).
