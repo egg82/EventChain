@@ -30,7 +30,8 @@ This event system allows for many different Minecraft plugin types (not just Buk
 </dependencies>
 ```
 
-Link to the latest version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
+Link to the latest API version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
+Link to the latest core version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-common/).<br/>
 Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
 ## Gradle
@@ -46,6 +47,10 @@ dependencies {
     compileOnly 'ninja.egg82:event-chain-TYPE:LATEST-VERSION'
 }
 ```
+
+Link to the latest API version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
+Link to the latest core version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-common/).<br/>
+Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
 ## Examples
 
