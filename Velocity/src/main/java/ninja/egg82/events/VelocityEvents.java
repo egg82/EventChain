@@ -2,24 +2,93 @@ package ninja.egg82.events;
 
 import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.proxy.ProxyServer;
+import org.jetbrains.annotations.NotNull;
 
 public class VelocityEvents {
     private VelocityEvents() { }
 
-    public static <T> VelocityEventSubscriber<T> subscribe(Object plugin, ProxyServer proxy, Class<T> event, PostOrder order) { return new VelocityEventSubscriber<>(plugin, proxy, event, order); }
+    /**
+     * Returns a single event subscriber.
+     *
+     * @param plugin the plugin to listen to events with
+     * @param proxy the proxy to listen to events with
+     * @param event the event class to listen to
+     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code event} is null
+     */
+    public static <T> @NotNull VelocityEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event) { return new VelocityEventSubscriber<>(plugin, proxy, event, PostOrder.NORMAL); }
 
-    public static void call(ProxyServer proxy, Object event) { proxy.getEventManager().fireAndForget(event); }
+    /**
+     * Returns a single event subscriber.
+     *
+     * @param plugin the plugin to listen to events with
+     * @param proxy the proxy to listen to events with
+     * @param event the event class to listen to
+     * @param priority the priority to listen on
+     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @throws NullPointerException if {@code plugin}, {@code proxy} {@code event}, or {@code priority} is null
+     */
+    public static <T> @NotNull VelocityEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event, @NotNull PostOrder priority) { return new VelocityEventSubscriber<>(plugin, proxy, event, priority); }
 
-    public static void callAsync(Object plugin, ProxyServer proxy, Object event) { proxy.getScheduler().buildTask(plugin, () -> call(proxy, event)); }
+    /**
+     * Calls an event on the current thread.
+     *
+     * @param proxy the proxy to call the event with
+     * @param event the event to call
+     * @throws NullPointerException if {@code proxy} or {@code event} is null
+     */
+    public static void call(@NotNull ProxyServer proxy, @NotNull Object event) { proxy.getEventManager().fireAndForget(event); }
 
-    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass) { return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass); }
+    /**
+     * Calls an event on a new async thread.
+     *
+     * @param plugin the plugin to call the event with
+     * @param proxy the proxy to call the event with
+     * @param event the event to call
+     * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code event} is null
+     */
+    public static void callAsync(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Object event) { proxy.getScheduler().buildTask(plugin, () -> call(proxy, event)); }
 
-    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, Class<? extends T>... events) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
+    /**
+     * Returns a merged event subscriber.
+     *
+     * @param plugin the plugin to listen to events with
+     * @param proxy the proxy to listen to events with
+     * @param superclass the event class that will be processed in the handler
+     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code superclass} is null
+     */
+    public static <E1, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass) { return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass); }
 
-    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, PostOrder order, Class<? extends T>... events) {
-        VelocityMergedEventSubscriber<T> subscriber = new VelocityMergedEventSubscriber<>(plugin, proxy, superclass);
-        for (Class<? extends T> clazz : events) {
-            subscriber.bind(clazz, order, e -> e);
+    /**
+     * Returns a merged event subscriber
+     * that listens to multiple similar events.
+     *
+     * @param plugin the plugin to listen to events with
+     * @param proxy the proxy to listen to events with
+     * @param superclass the event class that will be processed in the handler
+     * @param events the events to listen to
+     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, or {@code events} are null
+     */
+    public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull Class<E1>... events) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
+
+    /**
+     * Returns a merged event subscriber
+     * that listens to multiple similar events.
+     *
+     * @param plugin the plugin to listen to events with
+     * @param proxy the proxy to listen to events with
+     * @param superclass the event class that will be processed in the handler
+     * @param priority the priority to listen on
+     * @param events the events to listen to
+     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, {@code priority}, or {@code events} are null
+     */
+    public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull PostOrder priority, @NotNull Class<E1>... events) {
+        VelocityMergedEventSubscriber<E1, T> subscriber = new VelocityMergedEventSubscriber<>(plugin, proxy, superclass);
+        for (Class<E1> clazz : events) {
+            subscriber.bind(clazz, priority, e -> e);
         }
         return subscriber;
     }

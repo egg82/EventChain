@@ -33,16 +33,16 @@ public class BungeeEvents {
     public static <T extends Event> @NotNull BungeeEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event, byte priority) { return new BungeeEventSubscriber<>(plugin, event, priority); }
 
     /**
-     * Calls an event on a new async thread.
+     * Calls an event on the current thread.
      *
      * @param plugin the plugin to call the event with
      * @param event the event to call
-     * @throws NullPointerException if {@code plugin} or {@code event} is null
+     * @throws NullPointerException if {@code event} is null
      */
     public static void call(@NotNull Plugin plugin, @NotNull Event event) { plugin.getProxy().getPluginManager().callEvent(event); }
 
     /**
-     * Calls an event on the next sync tick.
+     * Calls an event on a new async thread.
      *
      * @param plugin the plugin to call the event with
      * @param event the event to call
