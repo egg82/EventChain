@@ -2,7 +2,7 @@ package ninja.egg82.events;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.*;
+import java.util.function.Function;
 import ninja.egg82.events.internal.SpongeHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;

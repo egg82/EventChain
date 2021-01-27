@@ -3,7 +3,6 @@ package ninja.egg82.events;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-
 import org.jetbrains.annotations.NotNull;
 
 public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent> extends AbstractEventSubscriber<GpioPinDigitalStateChangeEvent, T> implements GpioPinListenerDigital {

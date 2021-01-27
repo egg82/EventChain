@@ -13,7 +13,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import ninja.egg82.events.internal.HandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T> {

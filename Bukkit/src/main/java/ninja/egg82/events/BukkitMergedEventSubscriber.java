@@ -1,6 +1,6 @@
 package ninja.egg82.events;
 
-import java.util.function.*;
+import java.util.function.Function;
 import ninja.egg82.events.internal.BukkitHandlerMapping;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;

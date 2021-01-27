@@ -3,12 +3,6 @@ package ninja.egg82.events;
 import com.pi4j.io.gpio.GpioPinAnalogInput;
 import com.pi4j.io.gpio.event.GpioPinAnalogValueChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerAnalog;
-
-import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 
 public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> extends AbstractEventSubscriber<GpioPinAnalogValueChangeEvent, T> implements GpioPinListenerAnalog {

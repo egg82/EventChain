@@ -1,6 +1,6 @@
 package ninja.egg82.events;
 
-import java.util.function.*;
+import java.util.function.Function;
 import net.md_5.bungee.api.plugin.Event;
 import net.md_5.bungee.api.plugin.Plugin;
 import ninja.egg82.events.internal.BungeeAllEventsListener;

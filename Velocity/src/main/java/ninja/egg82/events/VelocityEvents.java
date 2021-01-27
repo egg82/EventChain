@@ -12,12 +12,12 @@ public class VelocityEvents {
 
     public static void callAsync(Object plugin, ProxyServer proxy, Object event) { proxy.getScheduler().buildTask(plugin, () -> call(proxy, event)); }
 
-    public static <T> MergedVelocityEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass) { return new MergedVelocityEventSubscriber<>(plugin, proxy, superclass); }
+    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass) { return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass); }
 
-    public static <T> MergedVelocityEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, Class<? extends T>... events) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
+    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, Class<? extends T>... events) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
 
-    public static <T> MergedVelocityEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, PostOrder order, Class<? extends T>... events) {
-        MergedVelocityEventSubscriber<T> subscriber = new MergedVelocityEventSubscriber<>(plugin, proxy, superclass);
+    public static <T> VelocityMergedEventSubscriber<T> merge(Object plugin, ProxyServer proxy, Class<T> superclass, PostOrder order, Class<? extends T>... events) {
+        VelocityMergedEventSubscriber<T> subscriber = new VelocityMergedEventSubscriber<>(plugin, proxy, superclass);
         for (Class<? extends T> clazz : events) {
             subscriber.bind(clazz, order, e -> e);
         }

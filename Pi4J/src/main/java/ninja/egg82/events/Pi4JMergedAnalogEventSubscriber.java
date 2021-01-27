@@ -3,8 +3,7 @@ package ninja.egg82.events;
 import com.pi4j.io.gpio.GpioPinAnalogInput;
 import com.pi4j.io.gpio.event.GpioPinAnalogValueChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerAnalog;
-
-import java.util.function.*;
+import java.util.function.Function;
 import ninja.egg82.events.internal.Pi4JAnalogHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 

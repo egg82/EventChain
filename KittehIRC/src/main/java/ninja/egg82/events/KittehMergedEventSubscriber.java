@@ -1,6 +1,6 @@
 package ninja.egg82.events;
 
-import java.util.function.*;
+import java.util.function.Function;
 import net.engio.mbassy.listener.Handler;
 import ninja.egg82.events.internal.KittehHandlerMapping;
 import org.jetbrains.annotations.NotNull;
