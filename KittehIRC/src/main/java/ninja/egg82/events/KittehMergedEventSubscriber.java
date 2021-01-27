@@ -10,8 +10,8 @@ import org.kitteh.irc.client.library.event.helper.ClientEvent;
 public class KittehMergedEventSubscriber<E1 extends ClientEvent, T> extends AbstractMergedEventSubscriber<E1, T> {
     private final Client client;
 
-    public KittehMergedEventSubscriber(@NotNull Client client, @NotNull Class<T> commonClass) {
-        super(commonClass);
+    public KittehMergedEventSubscriber(@NotNull Client client, @NotNull Class<T> superclass) {
+        super(superclass);
 
         this.client = client;
         client.getEventManager().registerEventListener(this);
