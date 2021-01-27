@@ -18,8 +18,8 @@ public class MergedVelocityEventSubscriber<T> extends AbstractMergedPriorityEven
     private Object plugin;
     private ProxyServer proxy;
 
-    public MergedVelocityEventSubscriber(Object plugin, ProxyServer proxy, Class<T> commonClass) {
-        super(commonClass);
+    public MergedVelocityEventSubscriber(Object plugin, ProxyServer proxy, Class<T> superclass) {
+        super(superclass);
 
         if (plugin == null) {
             throw new IllegalArgumentException("plugin cannot be null.");

@@ -1,18 +1,19 @@
 package ninja.egg82.events;
 
+import org.jetbrains.annotations.NotNull;
 import org.kitteh.irc.client.library.Client;
 import org.kitteh.irc.client.library.event.helper.ClientEvent;
 
 public class KittehEvents {
-    private KittehEvents() {}
+    private KittehEvents() { }
 
-    public static <T extends ClientEvent> KittehEventSubscriber<T> subscribe(Client client, Class<T> event) { return new KittehEventSubscriber<>(client, event); }
+    public static <T extends ClientEvent> @NotNull KittehEventSubscriber<T> subscribe(@NotNull Client client, @NotNull Class<T> event) { return new KittehEventSubscriber<>(client, event); }
 
-    public static <T> MergedKittehEventSubscriber<T> merge(Client client, Class<T> commonClass) { return new MergedKittehEventSubscriber<>(client, commonClass); }
+    public static <E1 extends ClientEvent, T> KittehMergedEventSubscriber<E1, T> merge(@NotNull Client client, @NotNull Class<T> superclass) { return new KittehMergedEventSubscriber<>(client, superclass); }
 
-    public static <T extends ClientEvent> MergedKittehEventSubscriber<T> merge(Client client, Class<T> superclass, Class<? extends T>... events) {
-        MergedKittehEventSubscriber<T> subscriber = new MergedKittehEventSubscriber<>(client, superclass);
-        for (Class<? extends T> clazz : events) {
+    public static <E1 extends T, T extends ClientEvent> @NotNull KittehMergedEventSubscriber<E1, T> merge(@NotNull Client client, @NotNull Class<T> superclass, @NotNull Class<E1>... events) {
+        KittehMergedEventSubscriber<E1, T> subscriber = new KittehMergedEventSubscriber<>(client, superclass);
+        for (Class<E1> clazz : events) {
             subscriber.bind(clazz, e -> e);
         }
         return subscriber;

@@ -14,8 +14,8 @@ public class MergedPi4JAnalogEventSubscriber<T> extends AbstractMergedPriorityEv
 
     private ConcurrentMap<Class<? extends GpioPinAnalogValueChangeEvent>, Function<GpioPinAnalogValueChangeEvent, T>> mappings = new ConcurrentHashMap<>();
 
-    public MergedPi4JAnalogEventSubscriber(GpioPinAnalogInput input, Class<T> commonClass) {
-        super(commonClass);
+    public MergedPi4JAnalogEventSubscriber(GpioPinAnalogInput input, Class<T> superclass) {
+        super(superclass);
 
         if (input == null) {
             throw new IllegalArgumentException("input cannot be null.");

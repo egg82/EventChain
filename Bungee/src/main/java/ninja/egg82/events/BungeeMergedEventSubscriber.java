@@ -11,8 +11,8 @@ public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
     private final Plugin plugin;
     private final BungeeAllEventsListener<E1> listener;
 
-    public BungeeMergedEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> commonClass, byte priority) {
-        super(commonClass);
+    public BungeeMergedEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> superclass, byte priority) {
+        super(superclass);
 
         this.plugin = plugin;
 

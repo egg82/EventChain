@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends AbstractMergedEventSubscriber<E1, T> implements EventListener {
     private final JDA jda;
 
-    public JDAMergedEventSubscriber(@NotNull JDA jda, @NotNull Class<T> commonClass) {
-        super(commonClass);
+    public JDAMergedEventSubscriber(@NotNull JDA jda, @NotNull Class<T> superclass) {
+        super(superclass);
 
         this.jda = jda;
         jda.addEventListener(this);

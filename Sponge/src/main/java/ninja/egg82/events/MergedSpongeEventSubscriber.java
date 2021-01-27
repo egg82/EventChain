@@ -18,8 +18,8 @@ public class MergedSpongeEventSubscriber<T> extends AbstractMergedPriorityEventS
     private ConcurrentMap<Class<? extends Event>, SpongeHandlerMapping<T>> mappings = new ConcurrentHashMap<>();
     private List<EventListener<?>> listeners = new CopyOnWriteArrayList<>();
 
-    public MergedSpongeEventSubscriber(Object plugin, Class<T> commonClass) {
-        super(commonClass);
+    public MergedSpongeEventSubscriber(Object plugin, Class<T> superclass) {
+        super(superclass);
 
         if (plugin == null) {
             throw new IllegalArgumentException("plugin cannot be null.");

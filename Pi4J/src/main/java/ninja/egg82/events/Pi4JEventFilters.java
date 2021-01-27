@@ -5,7 +5,7 @@ import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import java.util.function.Predicate;
 
 public class Pi4JEventFilters {
-    private Pi4JEventFilters() {}
+    private Pi4JEventFilters() { }
 
     private static final Predicate<? extends GpioPinDigitalStateChangeEvent> IS_HIGH = e -> e.getState().isHigh();
     private static final Predicate<? extends GpioPinDigitalStateChangeEvent> IS_LOW = e -> e.getState().isLow();

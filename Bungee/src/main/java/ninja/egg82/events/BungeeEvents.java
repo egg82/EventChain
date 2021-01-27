@@ -6,7 +6,7 @@ import net.md_5.bungee.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
 
 public class BungeeEvents {
-    private BungeeEvents() {}
+    private BungeeEvents() { }
 
     public static <T extends Event> @NotNull BungeeEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event) { return new BungeeEventSubscriber<>(plugin, event, EventPriority.NORMAL); }
 

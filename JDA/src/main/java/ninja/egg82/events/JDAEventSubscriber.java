@@ -15,13 +15,13 @@ public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSub
         jda.addEventListener(this);
     }
 
-    public void onEvent(@NotNull GenericEvent e) {
-        if (!e.getClass().isInstance(baseClass)) {
+    public void onEvent(@NotNull GenericEvent event) {
+        if (!event.getClass().isInstance(baseClass)) {
             return;
         }
 
         try {
-            call((T) e);
+            call((T) event);
         } catch (EventException ex) {
             throw new RuntimeException("Could not call event subscriber.", ex);
         }

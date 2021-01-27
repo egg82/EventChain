@@ -14,8 +14,8 @@ public class MergedPi4JDigitalEventSubscriber<T> extends AbstractMergedPriorityE
 
     private ConcurrentMap<Class<? extends GpioPinDigitalStateChangeEvent>, Function<GpioPinDigitalStateChangeEvent, T>> mappings = new ConcurrentHashMap<>();
 
-    public MergedPi4JDigitalEventSubscriber(GpioPinDigitalInput input, Class<T> commonClass) {
-        super(commonClass);
+    public MergedPi4JDigitalEventSubscriber(GpioPinDigitalInput input, Class<T> superclass) {
+        super(superclass);
 
         if (input == null) {
             throw new IllegalArgumentException("input cannot be null.");
