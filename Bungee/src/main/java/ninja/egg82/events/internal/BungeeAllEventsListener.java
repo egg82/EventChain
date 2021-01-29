@@ -487,7 +487,7 @@ public class BungeeAllEventsListener<E extends Event> implements Listener {
         }
 
         if (singleEventSubscriber != null) {
-            if (!clazz.isInstance(singleEventSubscriber.getBaseClass())) {
+            if (!singleEventSubscriber.getBaseClass().isInstance(event)) {
                 return;
             }
 

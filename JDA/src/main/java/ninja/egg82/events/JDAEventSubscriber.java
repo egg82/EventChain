@@ -16,7 +16,7 @@ public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSub
     }
 
     public void onEvent(@NotNull GenericEvent event) {
-        if (!event.getClass().isInstance(baseClass)) {
+        if (!baseClass.isInstance(event)) {
             return;
         }
 

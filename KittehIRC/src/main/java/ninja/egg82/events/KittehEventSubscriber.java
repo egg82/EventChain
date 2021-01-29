@@ -17,7 +17,7 @@ public class KittehEventSubscriber<T extends ClientEvent> extends AbstractEventS
 
     @Handler
     public void onAnyEvent(@NotNull ClientEvent event) {
-        if (!event.getClass().isInstance(baseClass)) {
+        if (!baseClass.isInstance(event)) {
             return;
         }
 
