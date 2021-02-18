@@ -21,6 +21,10 @@ public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> 
     }
 
     public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent event) {
+        if (!baseClass.isInstance(event)) {
+            return;
+        }
+
         try {
             call((T) event);
         } catch (EventException ex) {

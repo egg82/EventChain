@@ -18,6 +18,10 @@ public class VelocityEventSubscriber<T> extends AbstractPriorityEventSubscriber<
         this.proxy = proxy;
 
         handler = e -> {
+            if (!baseClass.isInstance(e)) {
+                return;
+            }
+
             try {
                 call(e, priority);
             } catch (PriorityEventException ex) {

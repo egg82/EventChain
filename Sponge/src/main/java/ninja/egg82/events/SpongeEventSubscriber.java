@@ -13,6 +13,10 @@ public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEven
         super(event);
 
         listener = e -> {
+            if (!baseClass.isInstance(e)) {
+                return;
+            }
+
             try {
                 call(e, priority);
             } catch (PriorityEventException ex) {

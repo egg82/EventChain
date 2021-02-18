@@ -21,6 +21,10 @@ public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent
     }
 
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+        if (!baseClass.isInstance(event)) {
+            return;
+        }
+
         try {
             call((T) event);
         } catch (EventException ex) {

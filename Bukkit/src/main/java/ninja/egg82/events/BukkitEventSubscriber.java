@@ -12,6 +12,10 @@ public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEven
         super(event);
 
         plugin.getServer().getPluginManager().registerEvent(event, this, priority, (l, e) -> {
+            if (!event.isInstance(e)) {
+                return;
+            }
+
             try {
                 call((T) e, priority);
             } catch (PriorityEventException ex) {
