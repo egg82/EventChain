@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 import ninja.egg82.events.internal.PriorityHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractMergedPriorityEventSubscriber<P, E, T> extends AbstractPriorityEventSubscriber<P, T> implements MergedPriorityEventSubscriber<P, E, T> {
+public abstract class AbstractMergedPriorityEventSubscriber<S extends AbstractMergedPriorityEventSubscriber<S, P, E, T>, P, E, T> extends AbstractPriorityEventSubscriber<S, P, T> implements MergedPriorityEventSubscriber<S, P, E, T> {
     protected final ConcurrentMap<Class<? extends E>, PriorityHandlerMapping<P, T>> mappings = new ConcurrentHashMap<>();
 
     protected AbstractMergedPriorityEventSubscriber(@NotNull Class<T> superclass) {
@@ -65,7 +65,7 @@ public abstract class AbstractMergedPriorityEventSubscriber<P, E, T> extends Abs
                 return;
             }
 
-            for (BiConsumer<AbstractPriorityEventSubscriber<P, T>, ? super T> consumer : handlerBiConsumers) {
+            for (BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T> consumer : handlerBiConsumers) {
                 try {
                     consumer.accept(this, obj);
                 } catch (Exception ex) {

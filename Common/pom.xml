@@ -87,7 +87,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>${jetbrains.version}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -17,7 +17,7 @@ public class BukkitEvents {
      *
      * @param plugin the plugin to listen to events with
      * @param event the event class to listen to
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link BukkitEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
     public static <T extends Event> @NotNull BukkitEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event) { return new BukkitEventSubscriber<>(plugin, event, EventPriority.NORMAL); }
@@ -28,7 +28,7 @@ public class BukkitEvents {
      * @param plugin the plugin to listen to events with
      * @param event the event class to listen to
      * @param priority the priority to listen on
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link BukkitEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin}, {@code event}, or {@code priority} is null
      */
     public static <T extends Event> @NotNull BukkitEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event, @NotNull EventPriority priority) { return new BukkitEventSubscriber<>(plugin, event, priority); }
@@ -64,7 +64,7 @@ public class BukkitEvents {
      *
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link BukkitMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin} or {@code superclass} is null
      */
     public static <E1 extends Event, T> @NotNull BukkitMergedEventSubscriber<E1, T> merge(@NotNull Plugin plugin, @NotNull Class<T> superclass) { return new BukkitMergedEventSubscriber<>(plugin, superclass); }
@@ -76,7 +76,7 @@ public class BukkitEvents {
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link BukkitMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(@NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events) { return merge(plugin, superclass, EventPriority.NORMAL, events); }
@@ -89,7 +89,7 @@ public class BukkitEvents {
      * @param superclass the event class that will be processed in the handler
      * @param priority the priority to listen on
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link BukkitMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code superclass}, {@code priority}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(@NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull EventPriority priority, @NotNull Class<E1>... events) {

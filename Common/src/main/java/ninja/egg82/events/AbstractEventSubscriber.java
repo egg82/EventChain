@@ -15,12 +15,12 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T> {
+public abstract class AbstractEventSubscriber<S extends AbstractEventSubscriber<S, E, T>, E, T> implements EventSubscriber<S, T> {
     protected final Class<T> baseClass;
 
-    protected final ConcurrentMap<TestStage, List<BiPredicate<AbstractEventSubscriber<E, T>, T>>> expireBiPredicates = new ConcurrentHashMap<>();
-    protected final List<BiConsumer<AbstractEventSubscriber<E, T>, ? super T>> handlerBiConsumers = new CopyOnWriteArrayList<>();
-    private final List<BiPredicate<AbstractEventSubscriber<E, T>, T>> filterBiPredicates = new CopyOnWriteArrayList<>();
+    protected final ConcurrentMap<TestStage, List<BiPredicate<AbstractEventSubscriber<S, E, T>, T>>> expireBiPredicates = new ConcurrentHashMap<>();
+    protected final List<BiConsumer<AbstractEventSubscriber<S, E, T>, ? super T>> handlerBiConsumers = new CopyOnWriteArrayList<>();
+    private final List<BiPredicate<AbstractEventSubscriber<S, E, T>, T>> filterBiPredicates = new CopyOnWriteArrayList<>();
     private final List<BiConsumer<? super T, Throwable>> exceptionBiConsumers = new CopyOnWriteArrayList<>();
 
     protected final Lock syncLock = new ReentrantLock();
@@ -74,7 +74,7 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
                 return;
             }
 
-            for (BiConsumer<AbstractEventSubscriber<E, T>, ? super T> consumer : handlerBiConsumers) {
+            for (BiConsumer<AbstractEventSubscriber<S, E, T>, ? super T> consumer : handlerBiConsumers) {
                 try {
                     consumer.accept(this, event);
                 } catch (Exception ex) {
@@ -90,7 +90,7 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
         }
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> expireAfter(long duration, @NotNull TimeUnit unit) {
+    public @NotNull S expireAfter(long duration, @NotNull TimeUnit unit) {
         if (duration < 0L) {
             throw new IllegalArgumentException("duration cannot be negative: " + duration + " " + unit);
         }
@@ -99,7 +99,7 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
         return expireIf((h, e) -> System.currentTimeMillis() > expireTime, TestStage.PRE_FILTER);
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> expireAfterCalls(long calls) {
+    public @NotNull S expireAfterCalls(long calls) {
         if (calls < 0L) {
             throw new IllegalArgumentException("calls cannot be negative: " + calls);
         }
@@ -107,9 +107,9 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
         return expireIf((h, e) -> getCallCount() >= calls, TestStage.PRE_FILTER, TestStage.POST_HANDLE);
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
+    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
 
-    private @NotNull AbstractEventSubscriber<E, T> expireIf(@NotNull BiPredicate<AbstractEventSubscriber<E, T>, T> predicate, @NotNull TestStage... stages) {
+    private @NotNull S expireIf(@NotNull BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate, @NotNull TestStage... stages) {
         for (TestStage stage : stages) {
             expireBiPredicates.compute(stage, (k, v) -> {
                 if (v == null) {
@@ -119,36 +119,36 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
                 return v;
             });
         }
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
+    public @NotNull S filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
 
-    private @NotNull AbstractEventSubscriber<E, T> filter(@NotNull BiPredicate<AbstractEventSubscriber<E, T>, T> predicate) {
+    private @NotNull S filter(@NotNull BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate) {
         filterBiPredicates.add(predicate);
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
+    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
 
-    public @NotNull AbstractEventSubscriber<E, T> exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
+    public @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
         exceptionBiConsumers.add(consumer);
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractEventSubscriber<E, T> handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
+    public @NotNull S handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
 
-    private @NotNull AbstractEventSubscriber<E, T> handler(@NotNull BiConsumer<AbstractEventSubscriber<E, T>, ? super T> handler) {
+    private @NotNull S handler(@NotNull BiConsumer<AbstractEventSubscriber<S, E, T>, ? super T> handler) {
         handlerBiConsumers.add(handler);
-        return this;
+        return (S) this;
     }
 
-    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractEventSubscriber<E, T>, T>> biCallList, @NotNull SubscriberStage stage) throws EventException {
+    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractEventSubscriber<S, E, T>, T>> biCallList, @NotNull SubscriberStage stage) throws EventException {
         if (biCallList == null) {
             return false;
         }
 
-        for (BiPredicate<AbstractEventSubscriber<E, T>, T> predicate : biCallList) {
+        for (BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate : biCallList) {
             try {
                 if (predicate.test(this, event)) {
                     return true;
@@ -162,7 +162,7 @@ public abstract class AbstractEventSubscriber<E, T> implements EventSubscriber<T
     }
 
     protected final boolean filter(@NotNull T event) throws EventException {
-        for (BiPredicate<AbstractEventSubscriber<E, T>, T> predicate : filterBiPredicates) {
+        for (BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate : filterBiPredicates) {
             try {
                 if (!predicate.test(this, event)) {
                     return true;

@@ -15,12 +15,12 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityEventSubscriber<P, T> {
+public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriorityEventSubscriber<S, P, T>, P, T> implements PriorityEventSubscriber<S, P, T> {
     protected final Class<T> baseClass;
 
-    protected final ConcurrentMap<TestStage, List<BiPredicate<AbstractPriorityEventSubscriber<P, T>, T>>> expireBiPredicates = new ConcurrentHashMap<>();
-    protected final List<BiConsumer<AbstractPriorityEventSubscriber<P, T>, ? super T>> handlerBiConsumers = new CopyOnWriteArrayList<>();
-    private final List<BiPredicate<AbstractPriorityEventSubscriber<P, T>, T>> filterBiPredicates = new CopyOnWriteArrayList<>();
+    protected final ConcurrentMap<TestStage, List<BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T>>> expireBiPredicates = new ConcurrentHashMap<>();
+    protected final List<BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T>> handlerBiConsumers = new CopyOnWriteArrayList<>();
+    private final List<BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T>> filterBiPredicates = new CopyOnWriteArrayList<>();
     private final List<BiConsumer<? super T, Throwable>> exceptionBiConsumers = new CopyOnWriteArrayList<>();
 
     protected final Lock syncLock = new ReentrantLock();
@@ -74,7 +74,7 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
                 return;
             }
 
-            for (BiConsumer<AbstractPriorityEventSubscriber<P, T>, ? super T> consumer : handlerBiConsumers) {
+            for (BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T> consumer : handlerBiConsumers) {
                 try {
                     consumer.accept(this, event);
                 } catch (Exception ex) {
@@ -90,7 +90,7 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
         }
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> expireAfter(long duration, @NotNull TimeUnit unit) {
+    public @NotNull S expireAfter(long duration, @NotNull TimeUnit unit) {
         if (duration < 0L) {
             throw new IllegalArgumentException("duration cannot be negative: " + duration + " " + unit);
         }
@@ -99,7 +99,7 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
         return expireIf((h, e) -> System.currentTimeMillis() > expireTime, TestStage.PRE_FILTER);
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> expireAfterCalls(long calls) {
+    public @NotNull S expireAfterCalls(long calls) {
         if (calls < 0L) {
             throw new IllegalArgumentException("calls cannot be negative: " + calls);
         }
@@ -107,9 +107,9 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
         return expireIf((h, e) -> getCallCount() >= calls, TestStage.PRE_FILTER, TestStage.POST_HANDLE);
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
+    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
 
-    private @NotNull AbstractPriorityEventSubscriber<P, T> expireIf(@NotNull BiPredicate<AbstractPriorityEventSubscriber<P, T>, T> predicate, @NotNull TestStage... stages) {
+    private @NotNull S expireIf(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate, @NotNull TestStage... stages) {
         for (TestStage stage : stages) {
             expireBiPredicates.compute(stage, (k, v) -> {
                 if (v == null) {
@@ -119,36 +119,36 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
                 return v;
             });
         }
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
+    public @NotNull S filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
 
-    private @NotNull AbstractPriorityEventSubscriber<P, T> filter(@NotNull BiPredicate<AbstractPriorityEventSubscriber<P, T>, T> predicate) {
+    private @NotNull S filter(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate) {
         filterBiPredicates.add(predicate);
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
+    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
+    public @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
         exceptionBiConsumers.add(consumer);
-        return this;
+        return (S) this;
     }
 
-    public @NotNull AbstractPriorityEventSubscriber<P, T> handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
+    public @NotNull S handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
 
-    private @NotNull AbstractPriorityEventSubscriber<P, T> handler(@NotNull BiConsumer<AbstractPriorityEventSubscriber<P, T>, ? super T> handler) {
+    private @NotNull S handler(@NotNull BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T> handler) {
         handlerBiConsumers.add(handler);
-        return this;
+        return (S) this;
     }
 
-    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractPriorityEventSubscriber<P, T>, T>> biCallList, @NotNull SubscriberStage stage) throws PriorityEventException {
+    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T>> biCallList, @NotNull SubscriberStage stage) throws PriorityEventException {
         if (biCallList == null) {
             return false;
         }
 
-        for (BiPredicate<AbstractPriorityEventSubscriber<P, T>, T> predicate : biCallList) {
+        for (BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate : biCallList) {
             try {
                 if (predicate.test(this, event)) {
                     return true;
@@ -162,7 +162,7 @@ public abstract class AbstractPriorityEventSubscriber<P, T> implements PriorityE
     }
 
     protected final boolean filter(@NotNull T event) throws PriorityEventException {
-        for (BiPredicate<AbstractPriorityEventSubscriber<P, T>, T> predicate : filterBiPredicates) {
+        for (BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate : filterBiPredicates) {
             try {
                 if (!predicate.test(this, event)) {
                     return true;

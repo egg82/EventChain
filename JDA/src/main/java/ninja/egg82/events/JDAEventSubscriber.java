@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
-public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSubscriber<GenericEvent, T> implements EventListener {
+public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSubscriber<JDAEventSubscriber<T>, GenericEvent, T> implements EventListener {
     private final JDA jda;
 
     public JDAEventSubscriber(@NotNull JDA jda, @NotNull Class<T> event) {

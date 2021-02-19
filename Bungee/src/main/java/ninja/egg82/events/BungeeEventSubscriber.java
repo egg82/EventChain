@@ -5,7 +5,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import ninja.egg82.events.internal.BungeeAllEventsListener;
 import org.jetbrains.annotations.NotNull;
 
-public class BungeeEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<Byte, T> {
+public class BungeeEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<BungeeEventSubscriber<T>, Byte, T> {
     private final Plugin plugin;
     private final BungeeAllEventsListener<T> listener;
 

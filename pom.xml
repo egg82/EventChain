@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <eventchain.version>2.0.3</eventchain.version>
-        <api.version>1.0.0</api.version>
+        <eventchain.version>3.0.0</eventchain.version>
+        <api.version>2.0.0</api.version>
 
         <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
         <bungee.version>1.8-SNAPSHOT</bungee.version>

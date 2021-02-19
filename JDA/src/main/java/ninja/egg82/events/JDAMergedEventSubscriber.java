@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.hooks.EventListener;
 import ninja.egg82.events.internal.JDAHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends AbstractMergedEventSubscriber<E1, T> implements EventListener {
+public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends AbstractMergedEventSubscriber<JDAMergedEventSubscriber<E1, T>, E1, T> implements EventListener {
     private final JDA jda;
 
     public JDAMergedEventSubscriber(@NotNull JDA jda, @NotNull Class<T> superclass) {
@@ -17,7 +17,7 @@ public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends Abstra
         jda.addEventListener(this);
     }
 
-    public @NotNull MergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
+    public @NotNull JDAMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new JDAHandlerMapping<>(function));
         return this;
     }

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.kitteh.irc.client.library.Client;
 import org.kitteh.irc.client.library.event.helper.ClientEvent;
 
-public class KittehEventSubscriber<T extends ClientEvent> extends AbstractEventSubscriber<ClientEvent, T> {
+public class KittehEventSubscriber<T extends ClientEvent> extends AbstractEventSubscriber<KittehEventSubscriber<T>, ClientEvent, T> {
     private final Client client;
 
     public KittehEventSubscriber(@NotNull Client client, @NotNull Class<T> event) {

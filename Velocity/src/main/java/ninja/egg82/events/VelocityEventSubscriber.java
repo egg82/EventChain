@@ -5,7 +5,7 @@ import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.jetbrains.annotations.NotNull;
 
-public class VelocityEventSubscriber<T> extends AbstractPriorityEventSubscriber<PostOrder, T> {
+public class VelocityEventSubscriber<T> extends AbstractPriorityEventSubscriber<VelocityEventSubscriber<T>, PostOrder, T> {
     private final Object plugin;
     private final ProxyServer proxy;
 

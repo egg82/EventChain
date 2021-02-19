@@ -6,25 +6,25 @@ import org.jetbrains.annotations.NotNull;
  * An exception thrown from an {@link PriorityEventSubscriber}.
  */
 public class PriorityEventException extends Exception {
-    private final PriorityEventSubscriber<?, ?> subscriber;
+    private final PriorityEventSubscriber<?, ?, ?> subscriber;
     private final Class<?> eventClass;
     private final SubscriberStage stage;
 
-    public <P, T> PriorityEventException(@NotNull PriorityEventSubscriber<P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, String message) {
+    public <S extends PriorityEventSubscriber<S, P, T>, P, T> PriorityEventException(@NotNull PriorityEventSubscriber<S, P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, String message) {
         super(message);
         this.subscriber = subscriber;
         this.eventClass = eventClass;
         this.stage = stage;
     }
 
-    public <P, T> PriorityEventException(@NotNull PriorityEventSubscriber<P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, Throwable cause) {
+    public <S extends PriorityEventSubscriber<S, P, T>, P, T> PriorityEventException(@NotNull PriorityEventSubscriber<S, P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, Throwable cause) {
         super(cause);
         this.subscriber = subscriber;
         this.eventClass = eventClass;
         this.stage = stage;
     }
 
-    public <P, T> PriorityEventException(@NotNull PriorityEventSubscriber<P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, String message, Throwable cause) {
+    public <S extends PriorityEventSubscriber<S, P, T>, P, T> PriorityEventException(@NotNull PriorityEventSubscriber<S, P, T> subscriber, @NotNull Class<T> eventClass, @NotNull SubscriberStage stage, String message, Throwable cause) {
         super(message, cause);
         this.subscriber = subscriber;
         this.eventClass = eventClass;
@@ -37,7 +37,7 @@ public class PriorityEventException extends Exception {
      * @return the subscriber this exception was thrown from.
      * @throws ClassCastException if the subscriber event type does not conform to the requested type
      */
-    public @NotNull <P, T> PriorityEventSubscriber<P, T> getSubscriber() { return (PriorityEventSubscriber<P, T>) subscriber; }
+    public @NotNull <S extends PriorityEventSubscriber<S, P, T>, P, T> S getSubscriber() { return (S) subscriber; }
 
     /**
      * Gets the subscriber's event class from the subscriber this exception was thrown from.

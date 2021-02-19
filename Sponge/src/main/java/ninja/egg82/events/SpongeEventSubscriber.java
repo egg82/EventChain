@@ -6,7 +6,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
 
-public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<Order, T> {
+public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<SpongeEventSubscriber<T>, Order, T> {
     private final EventListener<? super T> listener;
 
     public SpongeEventSubscriber(@NotNull Object plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications) {

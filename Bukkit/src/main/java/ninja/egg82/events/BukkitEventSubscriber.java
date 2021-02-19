@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<EventPriority, T> implements Listener {
+public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<BukkitEventSubscriber<T>, EventPriority, T> implements Listener {
     public BukkitEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> event, @NotNull EventPriority priority) {
         super(event);
 

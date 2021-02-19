@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 import ninja.egg82.events.internal.HandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractMergedEventSubscriber<E, T> extends AbstractEventSubscriber<E, T> implements MergedEventSubscriber<E, T> {
+public abstract class AbstractMergedEventSubscriber<S extends AbstractMergedEventSubscriber<S, E, T>, E, T> extends AbstractEventSubscriber<S, E, T> implements MergedEventSubscriber<S, E, T> {
     protected final ConcurrentMap<Class<? extends E>, HandlerMapping<T>> mappings = new ConcurrentHashMap<>();
 
     protected AbstractMergedEventSubscriber(@NotNull Class<T> superclass) {
@@ -61,7 +61,7 @@ public abstract class AbstractMergedEventSubscriber<E, T> extends AbstractEventS
                 return;
             }
 
-            for (BiConsumer<AbstractEventSubscriber<E, T>, ? super T> consumer : handlerBiConsumers) {
+            for (BiConsumer<AbstractEventSubscriber<S, E, T>, ? super T> consumer : handlerBiConsumers) {
                 try {
                     consumer.accept(this, obj);
                 } catch (Exception ex) {

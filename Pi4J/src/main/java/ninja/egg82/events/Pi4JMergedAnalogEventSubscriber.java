@@ -7,7 +7,7 @@ import java.util.function.Function;
 import ninja.egg82.events.internal.Pi4JAnalogHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public class Pi4JMergedAnalogEventSubscriber<E1 extends GpioPinAnalogValueChangeEvent, T> extends AbstractMergedEventSubscriber<E1, T> implements GpioPinListenerAnalog {
+public class Pi4JMergedAnalogEventSubscriber<E1 extends GpioPinAnalogValueChangeEvent, T> extends AbstractMergedEventSubscriber<Pi4JMergedAnalogEventSubscriber<E1, T>, E1, T> implements GpioPinListenerAnalog {
     private final GpioPinAnalogInput input;
 
     public Pi4JMergedAnalogEventSubscriber(@NotNull GpioPinAnalogInput input, @NotNull Class<T> superclass) {
@@ -17,7 +17,7 @@ public class Pi4JMergedAnalogEventSubscriber<E1 extends GpioPinAnalogValueChange
         input.addListener(this);
     }
 
-    public @NotNull MergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
+    public @NotNull Pi4JMergedAnalogEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new Pi4JAnalogHandlerMapping<>(function));
         return this;
     }

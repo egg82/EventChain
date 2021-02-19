@@ -10,7 +10,7 @@ import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
 
-public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<Order, E1, T> {
+public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<SpongeMergedEventSubscriber<E1, T>, Order, E1, T> {
     private final List<EventListener<?>> listeners = new CopyOnWriteArrayList<>();
 
     private final Object plugin;
@@ -23,7 +23,7 @@ public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         this.beforeModifications = beforeModifications;
     }
 
-    public @NotNull MergedPriorityEventSubscriber<Order, E1, T> bind(@NotNull Class<E1> event, @NotNull Order priority, @NotNull Function<E1, T> function) {
+    public @NotNull SpongeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Order priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new SpongeHandlerMapping<>(priority, function));
 
         EventListener<E1> listener = e -> {

@@ -21,10 +21,11 @@ import org.jetbrains.annotations.NotNull;
  * @see SinglePriorityEventSubscriber
  * @see SingleEventSubscriber
  *
+ * @param <S> the class type of the subscriber
  * @param <P> the class type of the priority system
  * @param <T> means different things based on the implementation
  */
-public interface PriorityEventSubscriber<P, T> {
+public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P, T>, P, T> {
     /**
      * Gets the base class of the subscriber.
      *
@@ -131,7 +132,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @throws IllegalArgumentException if {@code duration} is negative
      * @throws NullPointerException if the {@code unit} is null
      */
-    @NotNull PriorityEventSubscriber<P, T> expireAfter(long duration, @NotNull TimeUnit unit);
+    @NotNull S expireAfter(long duration, @NotNull TimeUnit unit);
 
     /**
      * Expires the subscriber after a set number of calls.
@@ -142,7 +143,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws IllegalArgumentException if {@code calls} is negative
      */
-    @NotNull PriorityEventSubscriber<P, T> expireAfterCalls(long calls);
+    @NotNull S expireAfterCalls(long calls);
 
     /**
      * Expires the subscriber after a {@link Predicate} returns true.
@@ -153,7 +154,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code predicate} is null
      */
-    default @NotNull PriorityEventSubscriber<P, T> expireIf(@NotNull Predicate<T> predicate) { return expireIf(predicate, TestStage.PRE_FILTER, TestStage.POST_HANDLE); }
+    default @NotNull S expireIf(@NotNull Predicate<T> predicate) { return expireIf(predicate, TestStage.PRE_FILTER, TestStage.POST_HANDLE); }
 
     /**
      * Expires the subscriber after a {@link Predicate} returns true.
@@ -163,7 +164,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code predicate} or {@code stages} are null
      */
-    default @NotNull PriorityEventSubscriber<P, T> expireIf(@NotNull Predicate<T> predicate, @NotNull Collection<TestStage> stages) { return expireIf(predicate, stages.toArray(new TestStage[0])); }
+    default @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull Collection<TestStage> stages) { return expireIf(predicate, stages.toArray(new TestStage[0])); }
 
     /**
      * Expires the subscriber after a {@link Predicate} returns true.
@@ -173,7 +174,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code predicate} or {@code stages} are null
      */
-    @NotNull PriorityEventSubscriber<P, T> expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages);
+    @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages);
 
     /**
      * Filters the subscriber so the event will be handled only if this predicate returns true.
@@ -182,7 +183,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code predicate} or {@code stages} are null
      */
-    @NotNull PriorityEventSubscriber<P, T> filter(@NotNull Predicate<T> predicate);
+    @NotNull S filter(@NotNull Predicate<T> predicate);
 
     /**
      * Handles any exceptions thrown from this subscriber.
@@ -193,7 +194,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code consumer} is null
      */
-    @NotNull PriorityEventSubscriber<P, T> exceptionHandler(@NotNull Consumer<Throwable> consumer);
+    @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer);
 
     /**
      * Handles any exceptions thrown from this subscriber.
@@ -204,7 +205,7 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code consumer} is null
      */
-    @NotNull PriorityEventSubscriber<P, T> exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer);
+    @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer);
 
     /**
      * Handles the event from this subscriber.
@@ -215,5 +216,5 @@ public interface PriorityEventSubscriber<P, T> {
      * @return this {@link PriorityEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code handler} is null
      */
-    @NotNull PriorityEventSubscriber<P, T> handler(@NotNull Consumer<? super T> handler);
+    @NotNull S handler(@NotNull Consumer<? super T> handler);
 }

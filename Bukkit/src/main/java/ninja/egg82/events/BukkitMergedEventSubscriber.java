@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<EventPriority, E1, T> implements Listener {
+public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<BukkitMergedEventSubscriber<E1, T>, EventPriority, E1, T> implements Listener {
     private final Plugin plugin;
 
     public BukkitMergedEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> superclass) {
@@ -18,7 +18,7 @@ public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         this.plugin = plugin;
     }
 
-    public @NotNull MergedPriorityEventSubscriber<EventPriority, E1, T> bind(@NotNull Class<E1> event, @NotNull EventPriority priority, @NotNull Function<E1, T> function) {
+    public @NotNull BukkitMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull EventPriority priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new BukkitHandlerMapping<>(priority, function));
 
         plugin.getServer().getPluginManager().registerEvent(event, this, priority, (l, e) -> {

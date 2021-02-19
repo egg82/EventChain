@@ -13,7 +13,7 @@ public class VelocityEvents {
      * @param plugin the plugin to listen to events with
      * @param proxy the proxy to listen to events with
      * @param event the event class to listen to
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link VelocityEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code event} is null
      */
     public static <T> @NotNull VelocityEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event) { return new VelocityEventSubscriber<>(plugin, proxy, event, PostOrder.NORMAL); }
@@ -25,7 +25,7 @@ public class VelocityEvents {
      * @param proxy the proxy to listen to events with
      * @param event the event class to listen to
      * @param priority the priority to listen on
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link VelocityEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin}, {@code proxy} {@code event}, or {@code priority} is null
      */
     public static <T> @NotNull VelocityEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event, @NotNull PostOrder priority) { return new VelocityEventSubscriber<>(plugin, proxy, event, priority); }
@@ -55,7 +55,7 @@ public class VelocityEvents {
      * @param plugin the plugin to listen to events with
      * @param proxy the proxy to listen to events with
      * @param superclass the event class that will be processed in the handler
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link VelocityMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code superclass} is null
      */
     public static <E1, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass) { return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass); }
@@ -68,7 +68,7 @@ public class VelocityEvents {
      * @param proxy the proxy to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link VelocityMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull Class<E1>... events) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
@@ -82,7 +82,7 @@ public class VelocityEvents {
      * @param superclass the event class that will be processed in the handler
      * @param priority the priority to listen on
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link VelocityMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, {@code priority}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull PostOrder priority, @NotNull Class<E1>... events) {

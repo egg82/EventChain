@@ -13,7 +13,7 @@ public class SpongeEvents {
      *
      * @param plugin the plugin to listen to events with
      * @param event the event class to listen to
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link SpongeEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
     public static <T extends Event> @NotNull SpongeEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull Class<T> event) { return new SpongeEventSubscriber<>(plugin, event, Order.DEFAULT, false); }
@@ -25,7 +25,7 @@ public class SpongeEvents {
      * @param event the event class to listen to
      * @param priority the priority to listen on
      * @param beforeModifications whether or not to call this subscriber before other server modifications
-     * @return a new {@link EventSubscriber} that listens to the desired event
+     * @return a new {@link SpongeEventSubscriber} that listens to the desired event
      * @throws NullPointerException if {@code plugin}, {@code event}, or {@code priority} is null
      */
     public static <T extends Event> @NotNull SpongeEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications) { return new SpongeEventSubscriber<>(plugin, event, priority, beforeModifications); }
@@ -62,7 +62,7 @@ public class SpongeEvents {
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param beforeModifications whether or not to call this subscriber before other server modifications
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link SpongeMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin} or {@code superclass} is null
      */
     public static <E1 extends Event, T> SpongeMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull Class<T> superclass, boolean beforeModifications) { return new SpongeMergedEventSubscriber<>(plugin, superclass, beforeModifications); }
@@ -74,7 +74,7 @@ public class SpongeEvents {
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link SpongeMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events) { return merge(plugin, superclass, Order.DEFAULT, false, events); }
@@ -88,7 +88,7 @@ public class SpongeEvents {
      * @param priority the priority to listen on
      * @param beforeModifications whether or not to call this subscriber before other server modifications
      * @param events the events to listen to
-     * @return a new {@link MergedEventSubscriber} that listens to the desired events
+     * @return a new {@link SpongeMergedEventSubscriber} that listens to the desired events
      * @throws NullPointerException if {@code plugin}, {@code superclass}, {@code priority}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Order priority, boolean beforeModifications, @NotNull Class<E1>... events) {

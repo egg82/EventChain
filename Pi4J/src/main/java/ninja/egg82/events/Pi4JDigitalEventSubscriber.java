@@ -5,7 +5,7 @@ import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import org.jetbrains.annotations.NotNull;
 
-public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent> extends AbstractEventSubscriber<GpioPinDigitalStateChangeEvent, T> implements GpioPinListenerDigital {
+public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent> extends AbstractEventSubscriber<Pi4JDigitalEventSubscriber<T>, GpioPinDigitalStateChangeEvent, T> implements GpioPinListenerDigital {
     private final GpioPinDigitalInput input;
 
     public Pi4JDigitalEventSubscriber(@NotNull GpioPinDigitalInput input, @NotNull Class<T> event) {

@@ -7,7 +7,7 @@ import java.util.function.Function;
 import ninja.egg82.events.internal.Pi4JDigitalHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChangeEvent, T> extends AbstractMergedEventSubscriber<E1, T> implements GpioPinListenerDigital {
+public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChangeEvent, T> extends AbstractMergedEventSubscriber<Pi4JMergedDigitalEventSubscriber<E1, T>, E1, T> implements GpioPinListenerDigital {
     private final GpioPinDigitalInput input;
 
     public Pi4JMergedDigitalEventSubscriber(@NotNull GpioPinDigitalInput input, @NotNull Class<T> superclass) {
@@ -17,7 +17,7 @@ public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChan
         input.addListener(this);
     }
 
-    public @NotNull MergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
+    public @NotNull Pi4JMergedDigitalEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new Pi4JDigitalHandlerMapping<>(function));
         return this;
     }

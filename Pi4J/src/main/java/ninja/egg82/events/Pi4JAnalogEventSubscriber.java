@@ -5,7 +5,7 @@ import com.pi4j.io.gpio.event.GpioPinAnalogValueChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerAnalog;
 import org.jetbrains.annotations.NotNull;
 
-public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> extends AbstractEventSubscriber<GpioPinAnalogValueChangeEvent, T> implements GpioPinListenerAnalog {
+public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> extends AbstractEventSubscriber<Pi4JAnalogEventSubscriber<T>, GpioPinAnalogValueChangeEvent, T> implements GpioPinListenerAnalog {
     private final GpioPinAnalogInput input;
 
     public Pi4JAnalogEventSubscriber(@NotNull GpioPinAnalogInput input, @NotNull Class<T> event) {

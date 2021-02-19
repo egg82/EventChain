@@ -9,7 +9,7 @@ import java.util.function.Function;
 import ninja.egg82.events.internal.VelocityHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriorityEventSubscriber<PostOrder, E1, T> {
+public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriorityEventSubscriber<VelocityMergedEventSubscriber<E1, T>, PostOrder, E1, T> {
     private final Object plugin;
     private final ProxyServer proxy;
 
@@ -22,7 +22,7 @@ public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriority
         this.proxy = proxy;
     }
 
-    public @NotNull MergedPriorityEventSubscriber<PostOrder, E1, T> bind(@NotNull Class<E1> event, @NotNull PostOrder priority, @NotNull Function<E1, T> function) {
+    public @NotNull VelocityMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull PostOrder priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new VelocityHandlerMapping<>(priority, function));
 
         EventHandler<E1> handler = e -> {

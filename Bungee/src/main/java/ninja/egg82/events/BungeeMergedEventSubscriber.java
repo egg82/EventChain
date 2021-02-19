@@ -7,7 +7,7 @@ import ninja.egg82.events.internal.BungeeAllEventsListener;
 import ninja.egg82.events.internal.BungeeHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 
-public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<Byte, E1, T> {
+public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<BungeeMergedEventSubscriber<E1, T>, Byte, E1, T> {
     private final Plugin plugin;
     private final BungeeAllEventsListener<E1> listener;
 
@@ -20,7 +20,7 @@ public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         plugin.getProxy().getPluginManager().registerListener(plugin, listener);
     }
 
-    public @NotNull MergedPriorityEventSubscriber<Byte, E1, T> bind(@NotNull Class<E1> event, @NotNull Byte priority, @NotNull Function<E1, T> function) {
+    public @NotNull BungeeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Byte priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new BungeeHandlerMapping<>(priority, function));
         return this;
     }

@@ -10,11 +10,12 @@ import org.jetbrains.annotations.NotNull;
  * <p>Additionally, this event supports event systems
  * that use an event priority system.</p>
  *
+ * @param <S> the class type of the subscriber
  * @param <P> the class type of the priority system
  * @param <E> the base event class type
  * @param <T> the superclass type of the events to merge
  */
-public interface MergedPriorityEventSubscriber<P, E, T> extends PriorityEventSubscriber<P, T> {
+public interface MergedPriorityEventSubscriber<S extends MergedPriorityEventSubscriber<S, P, E, T>, P, E, T> extends PriorityEventSubscriber<S, P, T> {
     /**
      * Binds a new event class to the merged subscriber.
      *
@@ -24,7 +25,7 @@ public interface MergedPriorityEventSubscriber<P, E, T> extends PriorityEventSub
      * @return this {@link MergedEventSubscriber} instance (for chaining)
      * @throws NullPointerException if the {@code event} or {@code function} is null
      */
-    @NotNull MergedPriorityEventSubscriber<P, E, T> bind(@NotNull Class<E> event, @NotNull P priority, @NotNull Function<E, T> function);
+    @NotNull S bind(@NotNull Class<E> event, @NotNull P priority, @NotNull Function<E, T> function);
 
     /**
      * Runs an event through this subscriber chain.
