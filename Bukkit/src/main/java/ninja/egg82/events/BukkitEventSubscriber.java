@@ -1,6 +1,7 @@
 package ninja.egg82.events;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEven
             try {
                 call((T) e, priority);
             } catch (PriorityEventException ex) {
-                throw new RuntimeException("Could not call event subscriber.", ex);
+                throw new EventException(ex, "Could not call event subscriber.");
             }
         }, plugin, false);
     }

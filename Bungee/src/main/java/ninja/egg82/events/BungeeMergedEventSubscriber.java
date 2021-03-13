@@ -20,7 +20,10 @@ public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         plugin.getProxy().getPluginManager().registerListener(plugin, listener);
     }
 
-    public @NotNull BungeeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Byte priority, @NotNull Function<E1, T> function) {
+    @Deprecated
+    public @NotNull BungeeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Byte priority, @NotNull Function<E1, T> function) { return bind(event, priority.byteValue(), function); }
+
+    public @NotNull BungeeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, byte priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new BungeeHandlerMapping<>(priority, function));
         return this;
     }

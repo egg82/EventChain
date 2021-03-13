@@ -12,13 +12,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <eventchain.version>3.0.0</eventchain.version>
+        <eventchain.version>3.1.0</eventchain.version>
         <api.version>2.0.0</api.version>
 
         <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
         <bungee.version>1.8-SNAPSHOT</bungee.version>
-        <jda.version>4.2.0_228</jda.version>
+        <jda.version>4.2.0_241</jda.version>
         <kitteh.version>7.4.0</kitteh.version>
+        <kyori-event.version>3.0.0</kyori-event.version>
         <pi4j.version>1.3</pi4j.version>
         <sponge.version>7.3.0</sponge.version>
         <velocity.version>1.1.4</velocity.version>
@@ -151,6 +152,7 @@
         <module>Bungee</module>
         <module>JDA</module>
         <module>KittehIRC</module>
+        <module>Kyori</module>
         <module>Pi4J</module>
         <module>Sponge</module>
         <module>Velocity</module>

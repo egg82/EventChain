@@ -2,11 +2,14 @@ package ninja.egg82.events;
 
 import java.util.function.Function;
 import net.engio.mbassy.listener.Handler;
+import net.engio.mbassy.listener.Listener;
+import net.engio.mbassy.listener.References;
 import ninja.egg82.events.internal.KittehHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 import org.kitteh.irc.client.library.Client;
 import org.kitteh.irc.client.library.event.helper.ClientEvent;
 
+@Listener(references = References.Strong)
 public class KittehMergedEventSubscriber<E1 extends ClientEvent, T> extends AbstractMergedEventSubscriber<KittehMergedEventSubscriber<E1, T>, E1, T> {
     private final Client client;
 

@@ -13,7 +13,7 @@ public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriority
     private final Object plugin;
     private final ProxyServer proxy;
 
-    private final List<EventHandler<?>> handlers = new CopyOnWriteArrayList<>();
+    private final List<EventHandler<E1>> handlers = new CopyOnWriteArrayList<>();
 
     public VelocityMergedEventSubscriber(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass) {
         super(superclass);

@@ -3,6 +3,7 @@ package ninja.egg82.events;
 import java.util.function.Function;
 import ninja.egg82.events.internal.BukkitHandlerMapping;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -25,7 +26,7 @@ public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
             try {
                 callMerged(e, priority);
             } catch (PriorityEventException ex) {
-                throw new RuntimeException("Could not call merged event subscriber.", ex);
+                throw new EventException(ex, "Could not call merged event subscriber.");
             }
         }, plugin, false);
 

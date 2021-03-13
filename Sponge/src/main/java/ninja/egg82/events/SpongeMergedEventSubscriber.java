@@ -11,7 +11,7 @@ import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
 
 public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<SpongeMergedEventSubscriber<E1, T>, Order, E1, T> {
-    private final List<EventListener<?>> listeners = new CopyOnWriteArrayList<>();
+    private final List<EventListener<E1>> listeners = new CopyOnWriteArrayList<>();
 
     private final Object plugin;
     private final boolean beforeModifications;
