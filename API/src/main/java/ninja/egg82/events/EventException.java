@@ -40,6 +40,9 @@ public class EventException extends Exception {
     /**
      * Gets the {@link EventSubscriber} this exception was thrown from.
      *
+     * @param <S> the class type of the subscriber
+     * @param <T> means different things based on the implementation
+     *
      * @return the subscriber this exception was thrown from.
      *
      * @throws ClassCastException if the subscriber event type does not conform to the requested type

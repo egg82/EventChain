@@ -40,6 +40,10 @@ public class PriorityEventException extends Exception {
     /**
      * Gets the {@link PriorityEventSubscriber} this exception was thrown from.
      *
+     * @param <S> the class type of the subscriber
+     * @param <P> the class type of the priority system
+     * @param <T> means different things based on the implementation
+     *
      * @return the subscriber this exception was thrown from.
      *
      * @throws ClassCastException if the subscriber event type does not conform to the requested type
