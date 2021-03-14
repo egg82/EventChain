@@ -115,6 +115,7 @@ public class BukkitEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(
             @NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) { return merge(plugin, superclass, EventPriority.NORMAL, events); }
@@ -134,6 +135,7 @@ public class BukkitEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code superclass}, {@code priority}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(
             @NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull EventPriority priority, @NotNull Class<E1>... events
     ) {

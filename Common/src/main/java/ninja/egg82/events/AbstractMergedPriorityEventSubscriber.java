@@ -18,7 +18,7 @@ public abstract class AbstractMergedPriorityEventSubscriber<S extends AbstractMe
 
     @Override
     public void call(@NotNull T event, @NotNull P priority) throws PriorityEventException {
-        throw new UnsupportedOperationException();
+        throw new PriorityEventException(this, baseClass, SubscriberStage.NONE, new UnsupportedOperationException());
     }
 
     @Override

@@ -56,6 +56,7 @@ public class JDAEvents {
      *
      * @throws NullPointerException if {@code jda}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends GenericEvent> @NotNull JDAMergedEventSubscriber<E1, T> merge(
             @NotNull JDA jda, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) {

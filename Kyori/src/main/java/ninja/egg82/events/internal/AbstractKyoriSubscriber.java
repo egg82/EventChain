@@ -9,7 +9,7 @@ public abstract class AbstractKyoriSubscriber<T> implements EventSubscriber<T> {
     private final Class<T> event;
     private final int priority;
 
-    public AbstractKyoriSubscriber(Class<T> event, int priority) {
+    protected AbstractKyoriSubscriber(Class<T> event, int priority) {
         this.event = event;
         this.priority = priority;
     }

@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
 public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEventSubscriber<KyoriMergedEventSubsciber<E1, T>, Integer, E1, T> {
@@ -39,7 +40,7 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
                 try {
                     callMerged(event, priority);
                 } catch (PriorityEventException ex) {
-                    throw new RuntimeException("Could not call event subscriber.", ex);
+                    throw new ExecutionException("Could not call event subscriber.", ex);
                 }
             }
         };

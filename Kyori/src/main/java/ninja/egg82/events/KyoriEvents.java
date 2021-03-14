@@ -91,6 +91,7 @@ public class KyoriEvents {
      *
      * @throws NullPointerException if {@code bus}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(
             @NotNull EventBus<E1> bus, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) { return merge(bus, superclass, PostOrders.NORMAL, events); }
@@ -110,6 +111,7 @@ public class KyoriEvents {
      *
      * @throws NullPointerException if {@code bus}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(
             @NotNull EventBus<E1> bus, @NotNull Class<T> superclass, int priority, @NotNull Class<E1>... events
     ) {

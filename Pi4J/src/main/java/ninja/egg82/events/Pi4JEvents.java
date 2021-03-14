@@ -86,6 +86,7 @@ public class Pi4JEvents {
      *
      * @throws NullPointerException if {@code input}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends GpioPinDigitalStateChangeEvent> Pi4JMergedDigitalEventSubscriber<E1, T> merge(
             @NotNull GpioPinDigitalInput input, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) {
@@ -110,6 +111,7 @@ public class Pi4JEvents {
      *
      * @throws NullPointerException if {@code input}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends GpioPinAnalogValueChangeEvent> @NotNull Pi4JMergedAnalogEventSubscriber<E1, T> merge(
             @NotNull GpioPinAnalogInput input, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) {

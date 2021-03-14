@@ -34,5 +34,10 @@ public enum SubscriberStage {
     /**
      * The post-handle expire test stage.
      */
-    POST_HANDLE_EXPIRE
+    POST_HANDLE_EXPIRE,
+
+    /**
+     * No stage is defined. This is used with a thrown {@link UnsupportedOperationException}.
+     */
+    NONE
 }

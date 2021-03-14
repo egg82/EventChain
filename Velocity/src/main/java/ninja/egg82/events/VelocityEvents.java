@@ -101,6 +101,7 @@ public class VelocityEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(
             @NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
@@ -121,6 +122,7 @@ public class VelocityEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, {@code priority}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(
             @NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull PostOrder priority, @NotNull Class<E1>... events
     ) {

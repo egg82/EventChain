@@ -113,6 +113,7 @@ public class SpongeEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(
             @NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) { return merge(plugin, superclass, Order.DEFAULT, false, events); }
@@ -133,6 +134,7 @@ public class SpongeEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code superclass}, {@code priority}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(
             @NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Order priority, boolean beforeModifications, @NotNull Class<E1>... events
     ) {

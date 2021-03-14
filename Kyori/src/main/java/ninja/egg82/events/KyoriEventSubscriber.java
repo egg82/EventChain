@@ -5,6 +5,8 @@ import net.kyori.event.EventSubscriber;
 import ninja.egg82.events.internal.AbstractKyoriSubscriber;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ExecutionException;
+
 public class KyoriEventSubscriber<T extends E, E> extends AbstractPriorityEventSubscriber<KyoriEventSubscriber<T, E>, Integer, T> {
     private final EventBus<E> bus;
     private final EventSubscriber<T> subscriber;
@@ -23,7 +25,7 @@ public class KyoriEventSubscriber<T extends E, E> extends AbstractPriorityEventS
                 try {
                     call(event, priority);
                 } catch (PriorityEventException ex) {
-                    throw new RuntimeException("Could not call event subscriber.", ex);
+                    throw new ExecutionException("Could not call event subscriber.", ex.getCause());
                 }
             }
         };

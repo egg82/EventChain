@@ -54,6 +54,7 @@ public class KittehEvents {
      *
      * @throws NullPointerException if {@code client}, {@code superclass}, or {@code events} are null
      */
+    @SafeVarargs
     public static <E1 extends T, T extends ClientEvent> @NotNull KittehMergedEventSubscriber<E1, T> merge(
             @NotNull Client client, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) {

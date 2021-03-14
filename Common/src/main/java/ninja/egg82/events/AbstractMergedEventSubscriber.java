@@ -18,7 +18,7 @@ public abstract class AbstractMergedEventSubscriber<S extends AbstractMergedEven
 
     @Override
     public void call(@NotNull T event) throws EventException {
-        throw new UnsupportedOperationException();
+        throw new EventException(this, baseClass, SubscriberStage.NONE, new UnsupportedOperationException());
     }
 
     @Override
