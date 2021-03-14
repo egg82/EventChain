@@ -12,5 +12,7 @@ public abstract class AbstractHandlerMapping<E, T> implements HandlerMapping<T> 
     }
 
     @Override
-    public @NotNull Function<Object, T> getFunction() { return function; }
+    public @NotNull Function<Object, T> getFunction() {
+        return function;
+    }
 }

@@ -7,4 +7,5 @@ package ninja.egg82.events;
  * @param <S> the class type of the subscriber
  * @param <T> the class type of the event
  */
-public interface SingleEventSubscriber<S extends SingleEventSubscriber<S, T>, T> extends EventSubscriber<S, T> { }
+public interface SingleEventSubscriber<S extends SingleEventSubscriber<S, T>, T> extends EventSubscriber<S, T> {
+}

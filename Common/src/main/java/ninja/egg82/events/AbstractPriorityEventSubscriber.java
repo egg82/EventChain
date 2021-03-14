@@ -31,22 +31,30 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
     }
 
     @Override
-    public Class<T> getBaseClass() { return baseClass; }
+    public Class<T> getBaseClass() {
+        return baseClass;
+    }
 
     protected AtomicBoolean cancelState = new AtomicBoolean(false);
 
     @Override
-    public @NotNull AtomicBoolean cancellationState() { return cancelState; }
+    public @NotNull AtomicBoolean cancellationState() {
+        return cancelState;
+    }
 
     protected AtomicBoolean expireState = new AtomicBoolean(false);
 
     @Override
-    public @NotNull AtomicBoolean expirationState() { return expireState; }
+    public @NotNull AtomicBoolean expirationState() {
+        return expireState;
+    }
 
     protected AtomicLong calls = new AtomicLong(0L);
 
     @Override
-    public @NotNull AtomicLong callCount() { return calls; }
+    public @NotNull AtomicLong callCount() {
+        return calls;
+    }
 
     @Override
     public void cancel() {
@@ -117,7 +125,9 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
     }
 
     @Override
-    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
+    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) {
+        return expireIf((t, p) -> predicate.test(p), stages);
+    }
 
     private @NotNull S expireIf(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate, @NotNull TestStage... stages) {
         for (TestStage stage : stages) {
@@ -133,7 +143,9 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
     }
 
     @Override
-    public @NotNull S filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
+    public @NotNull S filter(@NotNull Predicate<T> predicate) {
+        return filter((t, p) -> predicate.test(p));
+    }
 
     private @NotNull S filter(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate) {
         filterBiPredicates.add(predicate);
@@ -141,7 +153,9 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
     }
 
     @Override
-    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
+    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) {
+        return exceptionHandler((t, p) -> consumer.accept(p));
+    }
 
     @Override
     public @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
@@ -150,14 +164,20 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
     }
 
     @Override
-    public @NotNull S handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
+    public @NotNull S handler(@NotNull Consumer<? super T> handler) {
+        return handler((t, p) -> handler.accept(p));
+    }
 
     private @NotNull S handler(@NotNull BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T> handler) {
         handlerBiConsumers.add(handler);
         return (S) this;
     }
 
-    protected final boolean tryExpire(@NotNull T event, List<BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T>> biCallList, @NotNull SubscriberStage stage) throws PriorityEventException {
+    protected final boolean tryExpire(
+            @NotNull T event,
+            List<BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T>> biCallList,
+            @NotNull SubscriberStage stage
+    ) throws PriorityEventException {
         if (biCallList == null) {
             return false;
         }
@@ -197,7 +217,8 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
             try {
                 consumer.accept(event, newEx);
                 handled++;
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
 
         if (handled == 0) {

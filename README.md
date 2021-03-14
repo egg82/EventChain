@@ -1,4 +1,5 @@
 # EventChain
+
 Easy-to-use event system
 
 Originally developed by Luck @ https://github.com/lucko/helper - the event system from that library was split off and re-written to be more generic.
@@ -35,6 +36,7 @@ Link to the latest core version is available [here](https://nexus.egg82.me/servi
 Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
 ## Gradle
+
 ```Gradle
 repositories {
     maven {
@@ -55,6 +57,7 @@ Javadocs are available from the same repository, so IDEs should be able to pick 
 ## Examples
 
 ### Bukkit
+
 ```Java
 BukkitEvents.subscribe(plugin, PlayerLoginEvent.class, EventPriority.MONITOR)
   .filter(e -> e.getResult() == PlayerLoginEvent.Result.ALLOWED)
@@ -73,6 +76,7 @@ BukkitEvents.subscribe(plugin, PlayerLoginEvent.class, EventPriority.MONITOR)
 ```
 
 ### Bungee
+
 ```Java
 BungeeEvents.subscribe(plugin, PostLoginEvent.class, EventPriority.HIGHEST)
   .handler(e -> {
@@ -86,6 +90,7 @@ BungeeEvents.subscribe(plugin, PostLoginEvent.class, EventPriority.HIGHEST)
 ```
 
 ### Velocity
+
 ```Java
 VelocityEvents.subscribe(plugin, proxy, PostLoginEvent.class, PostOrder.LAST)
   .handler(e -> {

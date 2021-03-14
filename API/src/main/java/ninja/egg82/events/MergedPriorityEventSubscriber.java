@@ -23,7 +23,9 @@ public interface MergedPriorityEventSubscriber<S extends MergedPriorityEventSubs
      * @param event the known event to handle
      * @param priority the priority of the event
      * @param function the function used to translate handled event objects into a known event to handle
+     *
      * @return this {@link MergedEventSubscriber} instance (for chaining)
+     *
      * @throws NullPointerException if the {@code event} or {@code function} is null
      */
     @NotNull S bind(@NotNull Class<E> event, @NotNull P priority, @NotNull Function<E, T> function);
@@ -33,6 +35,7 @@ public interface MergedPriorityEventSubscriber<S extends MergedPriorityEventSubs
      *
      * @param event The event to call
      * @param priority The event priority
+     *
      * @throws PriorityEventException if an exception was thrown in the chain
      * @throws NullPointerException if the {@code event} is null
      */

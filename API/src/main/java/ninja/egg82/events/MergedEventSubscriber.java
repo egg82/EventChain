@@ -18,7 +18,9 @@ public interface MergedEventSubscriber<S extends MergedEventSubscriber<S, E, T>,
      *
      * @param event the known event to handle
      * @param function the function used to translate handled event objects into a known event to handle
+     *
      * @return this {@link MergedEventSubscriber} instance (for chaining)
+     *
      * @throws NullPointerException if the {@code event} or {@code function} is null
      */
     @NotNull S bind(@NotNull Class<E> event, @NotNull Function<E, T> function);
@@ -27,6 +29,7 @@ public interface MergedEventSubscriber<S extends MergedEventSubscriber<S, E, T>,
      * Runs an event through this subscriber chain.
      *
      * @param event The event to call
+     *
      * @throws EventException if an exception was thrown in the chain
      * @throws NullPointerException if the {@code event} is null
      */
