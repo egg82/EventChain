@@ -29,24 +29,30 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         this.baseClass = baseClass;
     }
 
+    @Override
     public Class<T> getBaseClass() { return baseClass; }
 
     protected AtomicBoolean cancelState = new AtomicBoolean(false);
 
+    @Override
     public @NotNull AtomicBoolean cancellationState() { return cancelState; }
 
     protected AtomicBoolean expireState = new AtomicBoolean(false);
 
+    @Override
     public @NotNull AtomicBoolean expirationState() { return expireState; }
 
     protected AtomicLong calls = new AtomicLong(0L);
 
+    @Override
     public @NotNull AtomicLong callCount() { return calls; }
 
+    @Override
     public void cancel() {
         cancelState.set(true);
     }
 
+    @Override
     public void call(@NotNull T event, @NotNull P priority) throws PriorityEventException {
         if (cancelState.get()) {
             return;
@@ -90,6 +96,7 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         }
     }
 
+    @Override
     public @NotNull S expireAfter(long duration, @NotNull TimeUnit unit) {
         if (duration < 0L) {
             throw new IllegalArgumentException("duration cannot be negative: " + duration + " " + unit);
@@ -99,6 +106,7 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         return expireIf((h, e) -> System.currentTimeMillis() > expireTime, TestStage.PRE_FILTER);
     }
 
+    @Override
     public @NotNull S expireAfterCalls(long calls) {
         if (calls < 0L) {
             throw new IllegalArgumentException("calls cannot be negative: " + calls);
@@ -107,6 +115,7 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         return expireIf((h, e) -> getCallCount() >= calls, TestStage.PRE_FILTER, TestStage.POST_HANDLE);
     }
 
+    @Override
     public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
 
     private @NotNull S expireIf(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate, @NotNull TestStage... stages) {
@@ -122,6 +131,7 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         return (S) this;
     }
 
+    @Override
     public @NotNull S filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
 
     private @NotNull S filter(@NotNull BiPredicate<AbstractPriorityEventSubscriber<S, P, T>, T> predicate) {
@@ -129,13 +139,16 @@ public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriority
         return (S) this;
     }
 
+    @Override
     public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
 
+    @Override
     public @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
         exceptionBiConsumers.add(consumer);
         return (S) this;
     }
 
+    @Override
     public @NotNull S handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
 
     private @NotNull S handler(@NotNull BiConsumer<AbstractPriorityEventSubscriber<S, P, T>, ? super T> handler) {

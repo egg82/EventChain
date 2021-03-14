@@ -22,6 +22,7 @@ public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriority
         this.proxy = proxy;
     }
 
+    @Override
     public @NotNull VelocityMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull PostOrder priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new VelocityHandlerMapping<>(priority, function));
 
@@ -39,6 +40,7 @@ public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriority
         return this;
     }
 
+    @Override
     public void cancel() {
         super.cancel();
 

@@ -93,6 +93,7 @@
             <groupId>org.spongepowered</groupId>
             <artifactId>spongeapi</artifactId>
             <version>${sponge.version}</version>
+            <type>jar</type>
             <scope>provided</scope>
         </dependency>
 

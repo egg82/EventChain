@@ -19,6 +19,7 @@ public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         this.plugin = plugin;
     }
 
+    @Override
     public @NotNull BukkitMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull EventPriority priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new BukkitHandlerMapping<>(priority, function));
 
@@ -33,6 +34,7 @@ public class BukkitMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         return this;
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         HandlerList.unregisterAll(this);

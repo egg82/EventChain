@@ -18,6 +18,7 @@ public class BungeeEventSubscriber<T extends Event> extends AbstractPriorityEven
         plugin.getProxy().getPluginManager().registerListener(plugin, listener);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         plugin.getProxy().getPluginManager().unregisterListener(listener);

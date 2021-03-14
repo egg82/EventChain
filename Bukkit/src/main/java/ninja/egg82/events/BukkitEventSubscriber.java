@@ -25,6 +25,7 @@ public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEven
         }, plugin, false);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         HandlerList.unregisterAll(this);

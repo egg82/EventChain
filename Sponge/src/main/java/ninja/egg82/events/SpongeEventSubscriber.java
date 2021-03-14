@@ -27,6 +27,7 @@ public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEven
         Sponge.getEventManager().registerListener(plugin, event, priority, beforeModifications, listener);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         Sponge.getEventManager().unregisterListeners(listener);

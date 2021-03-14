@@ -15,11 +15,13 @@ public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent
         input.addListener(this);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         input.removeListener(this);
     }
 
+    @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

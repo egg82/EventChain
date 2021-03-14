@@ -14,6 +14,7 @@ public class KyoriEventSubscriber<T extends E, E> extends AbstractPriorityEventS
 
         this.bus = bus;
         this.subscriber = new AbstractKyoriSubscriber<T>(event, priority) {
+            @Override
             public void invoke(@NotNull T event) throws Exception {
                 if (!baseClass.isInstance(event)) {
                     return;
@@ -30,6 +31,7 @@ public class KyoriEventSubscriber<T extends E, E> extends AbstractPriorityEventS
         bus.register(event, subscriber);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         bus.unregister(subscriber);

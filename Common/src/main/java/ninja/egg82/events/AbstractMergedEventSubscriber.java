@@ -15,8 +15,10 @@ public abstract class AbstractMergedEventSubscriber<S extends AbstractMergedEven
 
     public @NotNull Class<T> getSuperclass() { return baseClass; }
 
+    @Override
     public void call(@NotNull T event) throws EventException { throw new UnsupportedOperationException(); }
 
+    @Override
     public void callMerged(@NotNull Object event) throws EventException {
         if (cancelState.get()) {
             return;

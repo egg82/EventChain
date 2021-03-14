@@ -11,5 +11,6 @@ public abstract class AbstractPriorityHandlerMapping<P, E, T> extends AbstractHa
         this.priority = priority;
     }
 
+    @Override
     public @NotNull P getPriority() { return priority; }
 }

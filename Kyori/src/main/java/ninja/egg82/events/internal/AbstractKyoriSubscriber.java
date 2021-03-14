@@ -13,9 +13,12 @@ public abstract class AbstractKyoriSubscriber<T> implements EventSubscriber<T> {
         this.priority = priority;
     }
 
+    @Override
     public int postOrder() { return priority; }
 
+    @Override
     public boolean consumeCancelledEvents() { return true; }
 
+    @Override
     public @Nullable Type genericType() { return event; }
 }

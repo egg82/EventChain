@@ -19,6 +19,7 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
         this.bus = bus;
     }
 
+    @Override
     @Deprecated
     public @NotNull KyoriMergedEventSubsciber<E1, T> bind(@NotNull Class<E1> event, @NotNull Integer priority, @NotNull Function<E1, T> function) { return bind(event, priority.intValue(), function); }
 
@@ -26,6 +27,7 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
         mappings.put(event, new KyoriHandlerMapping<>(priority, function));
 
         EventSubscriber<E1> subscriber = new AbstractKyoriSubscriber<E1>(event, priority) {
+            @Override
             public void invoke(@NotNull E1 event) throws Exception {
                 try {
                     callMerged(event, priority);
@@ -41,6 +43,7 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
         return this;
     }
 
+    @Override
     public void cancel() {
         super.cancel();
 

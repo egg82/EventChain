@@ -10,5 +10,6 @@ public abstract class AbstractHandlerMapping<E, T> implements HandlerMapping<T> 
         this.function = o -> function.apply((E) o);
     }
 
+    @Override
     public @NotNull Function<Object, T> getFunction() { return function; }
 }

@@ -15,8 +15,10 @@ public abstract class AbstractMergedPriorityEventSubscriber<S extends AbstractMe
 
     public @NotNull Class<T> getSuperclass() { return baseClass; }
 
+    @Override
     public void call(@NotNull T event, @NotNull P priority) throws PriorityEventException { throw new UnsupportedOperationException(); }
 
+    @Override
     public void callMerged(@NotNull Object event, @NotNull P priority) throws PriorityEventException {
         if (cancelState.get()) {
             return;

@@ -1,25 +1,22 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
+node {
+    docker.image('maven:3-amazoncorretto-8').inside {
+        stage('Build Java 8') {
+            sh 'mvn -B -T 1C -DskipTests clean package'
+            sh 'for f in **/target/event-chain-*.jar; do mv "$f" "${f%.jar}-j8.jar"; done'
+            archiveArtifacts artifacts: '**/target/event-chain-*-j8.jar', fingerprint: true
+        }
+        stage('Test Java 8') {
+            sh 'mvn -B test'
         }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
+    docker.image('maven:3-amazoncorretto-11').inside {
+        stage('Build Java 11') {
+            sh 'mvn -B -T 1C -DskipTests clean package'
+            sh 'for f in **/target/event-chain-*.jar; do mv "$f" "${f%.jar}-j11.jar"; done'
+            archiveArtifacts artifacts: '**/target/event-chain-*-j11.jar', fingerprint: true
         }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-    }
-	post {
-        always {
-            archiveArtifacts artifacts: '**/target/event-chain-*.jar', fingerprint: true
+        stage('Test Java 11') {
+            sh 'mvn -B test'
         }
     }
 }

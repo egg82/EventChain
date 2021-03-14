@@ -31,6 +31,7 @@ public class KittehEventSubscriber<T extends ClientEvent> extends AbstractEventS
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         client.getEventManager().unregisterEventListener(this);

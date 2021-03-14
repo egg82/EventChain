@@ -17,11 +17,13 @@ public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends Abstra
         jda.addEventListener(this);
     }
 
+    @Override
     public @NotNull JDAMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new JDAHandlerMapping<>(function));
         return this;
     }
 
+    @Override
     public void onEvent(@NotNull GenericEvent event) {
         try {
             callMerged(event);
@@ -30,6 +32,7 @@ public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends Abstra
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         jda.removeEventListener(this);

@@ -15,11 +15,13 @@ public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> 
         input.addListener(this);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         input.removeListener(this);
     }
 
+    @Override
     public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

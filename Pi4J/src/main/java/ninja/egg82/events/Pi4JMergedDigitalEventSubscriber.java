@@ -17,11 +17,13 @@ public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChan
         input.addListener(this);
     }
 
+    @Override
     public @NotNull Pi4JMergedDigitalEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new Pi4JDigitalHandlerMapping<>(function));
         return this;
     }
 
+    @Override
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
         try {
             callMerged(event);
@@ -30,6 +32,7 @@ public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChan
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         input.removeListener(this);

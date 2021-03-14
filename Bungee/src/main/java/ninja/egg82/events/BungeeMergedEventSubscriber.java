@@ -20,6 +20,7 @@ public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         plugin.getProxy().getPluginManager().registerListener(plugin, listener);
     }
 
+    @Override
     @Deprecated
     public @NotNull BungeeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Byte priority, @NotNull Function<E1, T> function) { return bind(event, priority.byteValue(), function); }
 
@@ -28,6 +29,7 @@ public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         return this;
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         plugin.getProxy().getPluginManager().unregisterListener(listener);

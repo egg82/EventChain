@@ -15,6 +15,7 @@ public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSub
         jda.addEventListener(this);
     }
 
+    @Override
     public void onEvent(@NotNull GenericEvent event) {
         if (!baseClass.isInstance(event)) {
             return;
@@ -27,6 +28,7 @@ public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSub
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         jda.removeEventListener(this);

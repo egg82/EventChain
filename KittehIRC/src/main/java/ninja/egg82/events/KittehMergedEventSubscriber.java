@@ -20,6 +20,7 @@ public class KittehMergedEventSubscriber<E1 extends ClientEvent, T> extends Abst
         client.getEventManager().registerEventListener(this);
     }
 
+    @Override
     public @NotNull KittehMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new KittehHandlerMapping<>(function));
         return this;
@@ -34,6 +35,7 @@ public class KittehMergedEventSubscriber<E1 extends ClientEvent, T> extends Abst
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         client.getEventManager().unregisterEventListener(this);

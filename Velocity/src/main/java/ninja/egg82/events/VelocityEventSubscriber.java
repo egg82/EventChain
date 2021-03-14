@@ -32,6 +32,7 @@ public class VelocityEventSubscriber<T> extends AbstractPriorityEventSubscriber<
         proxy.getEventManager().register(plugin, event, priority, handler);
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         proxy.getEventManager().unregister(plugin, handler);

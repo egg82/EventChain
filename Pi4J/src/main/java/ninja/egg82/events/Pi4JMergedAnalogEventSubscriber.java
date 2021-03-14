@@ -17,11 +17,13 @@ public class Pi4JMergedAnalogEventSubscriber<E1 extends GpioPinAnalogValueChange
         input.addListener(this);
     }
 
+    @Override
     public @NotNull Pi4JMergedAnalogEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Function<E1, T> function) {
         mappings.put(event, new Pi4JAnalogHandlerMapping<>(function));
         return this;
     }
 
+    @Override
     public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent event) {
         try {
             callMerged(event);
@@ -30,6 +32,7 @@ public class Pi4JMergedAnalogEventSubscriber<E1 extends GpioPinAnalogValueChange
         }
     }
 
+    @Override
     public void cancel() {
         super.cancel();
         input.removeListener(this);

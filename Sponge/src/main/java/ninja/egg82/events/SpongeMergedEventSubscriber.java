@@ -23,6 +23,7 @@ public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         this.beforeModifications = beforeModifications;
     }
 
+    @Override
     public @NotNull SpongeMergedEventSubscriber<E1, T> bind(@NotNull Class<E1> event, @NotNull Order priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new SpongeHandlerMapping<>(priority, function));
 
@@ -39,6 +40,7 @@ public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         return this;
     }
 
+    @Override
     public void cancel() {
         super.cancel();
 
