@@ -1,11 +1,12 @@
 package ninja.egg82.events;
 
-import java.util.function.Function;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import ninja.egg82.events.internal.JDAHandlerMapping;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 public class JDAMergedEventSubscriber<E1 extends GenericEvent, T> extends AbstractMergedEventSubscriber<JDAMergedEventSubscriber<E1, T>, E1, T> implements EventListener {
     private final JDA jda;

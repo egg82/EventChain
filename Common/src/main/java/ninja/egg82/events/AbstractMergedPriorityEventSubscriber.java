@@ -1,10 +1,11 @@
 package ninja.egg82.events;
 
+import ninja.egg82.events.internal.PriorityHandlerMapping;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
-import ninja.egg82.events.internal.PriorityHandlerMapping;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractMergedPriorityEventSubscriber<S extends AbstractMergedPriorityEventSubscriber<S, P, E, T>, P, E, T> extends AbstractPriorityEventSubscriber<S, P, T> implements MergedPriorityEventSubscriber<S, P, E, T> {
     protected final ConcurrentMap<Class<? extends E>, PriorityHandlerMapping<P, T>> mappings = new ConcurrentHashMap<>();

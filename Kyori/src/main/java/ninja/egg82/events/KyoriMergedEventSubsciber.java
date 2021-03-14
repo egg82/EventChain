@@ -1,13 +1,14 @@
 package ninja.egg82.events;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Function;
 import net.kyori.event.EventBus;
 import net.kyori.event.EventSubscriber;
 import ninja.egg82.events.internal.AbstractKyoriSubscriber;
 import ninja.egg82.events.internal.KyoriHandlerMapping;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 
 public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEventSubscriber<KyoriMergedEventSubsciber<E1, T>, Integer, E1, T> {
     private final EventBus<E1> bus;

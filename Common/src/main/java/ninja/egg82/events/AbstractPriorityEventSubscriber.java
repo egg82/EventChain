@@ -1,5 +1,7 @@
 package ninja.egg82.events;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -13,7 +15,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractPriorityEventSubscriber<S extends AbstractPriorityEventSubscriber<S, P, T>, P, T> implements PriorityEventSubscriber<S, P, T> {
     protected final Class<T> baseClass;

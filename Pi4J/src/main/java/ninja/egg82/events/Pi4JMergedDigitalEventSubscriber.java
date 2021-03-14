@@ -3,9 +3,10 @@ package ninja.egg82.events;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import java.util.function.Function;
 import ninja.egg82.events.internal.Pi4JDigitalHandlerMapping;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 public class Pi4JMergedDigitalEventSubscriber<E1 extends GpioPinDigitalStateChangeEvent, T> extends AbstractMergedEventSubscriber<Pi4JMergedDigitalEventSubscriber<E1, T>, E1, T> implements GpioPinListenerDigital {
     private final GpioPinDigitalInput input;

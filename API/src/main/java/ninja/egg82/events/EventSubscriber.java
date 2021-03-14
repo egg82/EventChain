@@ -1,5 +1,7 @@
 package ninja.egg82.events;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -7,7 +9,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a basic event subscriber.

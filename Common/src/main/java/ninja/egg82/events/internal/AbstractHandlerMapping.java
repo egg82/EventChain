@@ -1,7 +1,8 @@
 package ninja.egg82.events.internal;
 
-import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 public abstract class AbstractHandlerMapping<E, T> implements HandlerMapping<T> {
     private final Function<Object, T> function;

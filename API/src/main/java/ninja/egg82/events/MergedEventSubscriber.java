@@ -1,7 +1,8 @@
 package ninja.egg82.events;
 
-import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 /**
  * Represents an event subscriber that can support

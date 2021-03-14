@@ -1,7 +1,8 @@
 package ninja.egg82.events;
 
-import java.util.function.Consumer;
 import org.spongepowered.api.event.Cancellable;
+
+import java.util.function.Consumer;
 
 /**
  * This class stolen from Luck's Helper @ https://github.com/lucko/helper/blob/master/helper/src/main/java/me/lucko/helper/event/filter/EventHandlers.java

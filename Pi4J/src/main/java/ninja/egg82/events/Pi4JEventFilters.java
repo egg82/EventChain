@@ -1,6 +1,7 @@
 package ninja.egg82.events;
 
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+
 import java.util.function.Predicate;
 
 public class Pi4JEventFilters {

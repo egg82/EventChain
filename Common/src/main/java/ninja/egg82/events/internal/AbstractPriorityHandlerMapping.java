@@ -1,7 +1,8 @@
 package ninja.egg82.events.internal;
 
-import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 public abstract class AbstractPriorityHandlerMapping<P, E, T> extends AbstractHandlerMapping<E, T> implements PriorityHandlerMapping<P, T> {
     private final P priority;

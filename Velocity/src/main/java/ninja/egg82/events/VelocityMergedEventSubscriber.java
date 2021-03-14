@@ -3,11 +3,12 @@ package ninja.egg82.events;
 import com.velocitypowered.api.event.EventHandler;
 import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.proxy.ProxyServer;
+import ninja.egg82.events.internal.VelocityHandlerMapping;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
-import ninja.egg82.events.internal.VelocityHandlerMapping;
-import org.jetbrains.annotations.NotNull;
 
 public class VelocityMergedEventSubscriber<E1, T> extends AbstractMergedPriorityEventSubscriber<VelocityMergedEventSubscriber<E1, T>, PostOrder, E1, T> {
     private final Object plugin;

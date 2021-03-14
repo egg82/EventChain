@@ -1,10 +1,11 @@
 package ninja.egg82.events;
 
+import ninja.egg82.events.internal.HandlerMapping;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiConsumer;
-import ninja.egg82.events.internal.HandlerMapping;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractMergedEventSubscriber<S extends AbstractMergedEventSubscriber<S, E, T>, E, T> extends AbstractEventSubscriber<S, E, T> implements MergedEventSubscriber<S, E, T> {
     protected final ConcurrentMap<Class<? extends E>, HandlerMapping<T>> mappings = new ConcurrentHashMap<>();

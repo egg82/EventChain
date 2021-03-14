@@ -1,10 +1,11 @@
 package ninja.egg82.events;
 
-import java.util.function.Predicate;
 import org.spongepowered.api.event.Cancellable;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.service.permission.Subject;
+
+import java.util.function.Predicate;
 
 /**
  * This class stolen from Luck's Helper @ https://github.com/lucko/helper/blob/master/helper/src/main/java/me/lucko/helper/event/filter/EventFilters.java

@@ -1,11 +1,12 @@
 package ninja.egg82.events;
 
-import java.util.function.Predicate;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import java.util.function.Predicate;
 
 /**
  * This class stolen from Luck's Helper @ https://github.com/lucko/helper/blob/master/helper/src/main/java/me/lucko/helper/event/filter/EventFilters.java

@@ -1,14 +1,15 @@
 package ninja.egg82.events;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Function;
 import ninja.egg82.events.internal.SpongeHandlerMapping;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
 import org.spongepowered.api.event.Order;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 
 public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<SpongeMergedEventSubscriber<E1, T>, Order, E1, T> {
     private final List<EventListener<E1>> listeners = new CopyOnWriteArrayList<>();

@@ -1,11 +1,12 @@
 package ninja.egg82.events;
 
-import java.util.function.Function;
 import net.md_5.bungee.api.plugin.Event;
 import net.md_5.bungee.api.plugin.Plugin;
 import ninja.egg82.events.internal.BungeeAllEventsListener;
 import ninja.egg82.events.internal.BungeeHandlerMapping;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Function;
 
 public class BungeeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<BungeeMergedEventSubscriber<E1, T>, Byte, E1, T> {
     private final Plugin plugin;
