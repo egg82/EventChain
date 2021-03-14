@@ -5,8 +5,7 @@ import net.kyori.event.PostOrders;
 import org.jetbrains.annotations.NotNull;
 
 public class KyoriEvents {
-    private KyoriEvents() {
-    }
+    private KyoriEvents() { }
 
     /**
      * Returns a single event subscriber.
@@ -19,7 +18,11 @@ public class KyoriEvents {
      * @throws NullPointerException if {@code bus} or {@code event} is null
      */
     public static <T extends E, E> @NotNull KyoriEventSubscriber<T, E> subscribe(@NotNull EventBus<E> bus, @NotNull Class<T> event) {
-        return new KyoriEventSubscriber<>(bus, event, PostOrders.NORMAL);
+        return new KyoriEventSubscriber<>(
+                bus,
+                event,
+                PostOrders.NORMAL
+        );
     }
 
     /**
@@ -33,9 +36,11 @@ public class KyoriEvents {
      *
      * @throws NullPointerException if {@code bus} or {@code event} is null
      */
-    public static <T extends E, E> @NotNull KyoriEventSubscriber<T, E> subscribe(@NotNull EventBus<E> bus, @NotNull Class<T> event, int priority) {
-        return new KyoriEventSubscriber<>(bus, event, priority);
-    }
+    public static <T extends E, E> @NotNull KyoriEventSubscriber<T, E> subscribe(
+            @NotNull EventBus<E> bus,
+            @NotNull Class<T> event,
+            int priority
+    ) { return new KyoriEventSubscriber<>(bus, event, priority); }
 
     /**
      * Calls an event on the current thread.
@@ -59,9 +64,10 @@ public class KyoriEvents {
      *
      * @throws NullPointerException if {@code bus} or {@code superclass} is null
      */
-    public static <E1, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(@NotNull EventBus<E1> bus, @NotNull Class<T> superclass) {
-        return new KyoriMergedEventSubsciber<>(bus, superclass);
-    }
+    public static <E1, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(
+            @NotNull EventBus<E1> bus,
+            @NotNull Class<T> superclass
+    ) { return new KyoriMergedEventSubsciber<>(bus, superclass); }
 
     /**
      * Returns a merged event subscriber
@@ -76,12 +82,8 @@ public class KyoriEvents {
      * @throws NullPointerException if {@code bus}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(
-            @NotNull EventBus<E1> bus,
-            @NotNull Class<T> superclass,
-            @NotNull Class<E1>... events
-    ) {
-        return merge(bus, superclass, PostOrders.NORMAL, events);
-    }
+            @NotNull EventBus<E1> bus, @NotNull Class<T> superclass, @NotNull Class<E1>... events
+    ) { return merge(bus, superclass, PostOrders.NORMAL, events); }
 
     /**
      * Returns a merged event subscriber
@@ -97,10 +99,7 @@ public class KyoriEvents {
      * @throws NullPointerException if {@code bus}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull KyoriMergedEventSubsciber<E1, T> merge(
-            @NotNull EventBus<E1> bus,
-            @NotNull Class<T> superclass,
-            @NotNull int priority,
-            @NotNull Class<E1>... events
+            @NotNull EventBus<E1> bus, @NotNull Class<T> superclass, int priority, @NotNull Class<E1>... events
     ) {
         KyoriMergedEventSubsciber<E1, T> subscriber = new KyoriMergedEventSubsciber<>(bus, superclass);
         for (Class<E1> clazz : events) {

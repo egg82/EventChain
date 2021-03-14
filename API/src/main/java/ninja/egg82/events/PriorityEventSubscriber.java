@@ -54,18 +54,14 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @return if the subscriber is cancelled
      */
-    default boolean isCancelled() {
-        return cancellationState().get();
-    }
+    default boolean isCancelled() { return cancellationState().get(); }
 
     /**
      * Returns true if the subscriber is not currently cancelled.
      *
      * @return if the subscriber is not cancelled
      */
-    default boolean isNotCancelled() {
-        return !cancellationState().get();
-    }
+    default boolean isNotCancelled() { return !cancellationState().get(); }
 
     /**
      * Gets an {@link AtomicBoolean} holding the expiration state of the subscriber
@@ -85,18 +81,14 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @return if the subscriber is expired
      */
-    default boolean isExpired() {
-        return expirationState().get();
-    }
+    default boolean isExpired() { return expirationState().get(); }
 
     /**
      * Returns true if the subscriber is not currently expired.
      *
      * @return if the subscriber is not expired
      */
-    default boolean isNotExpired() {
-        return !expirationState().get();
-    }
+    default boolean isNotExpired() { return !expirationState().get(); }
 
     /**
      * Sets the expiration state of the subscriber.
@@ -105,9 +97,7 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @return the previous state
      */
-    default boolean setExpired(boolean expired) {
-        return expirationState().getAndSet(expired);
-    }
+    default boolean setExpired(boolean expired) { return expirationState().getAndSet(expired); }
 
     /**
      * Gets an {@link AtomicLong} holding the current call count of the subscriber
@@ -121,9 +111,7 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @return the current call count of the subscriber
      */
-    default long getCallCount() {
-        return callCount().get();
-    }
+    default long getCallCount() { return callCount().get(); }
 
     /**
      * Runs an event through this subscriber chain.
@@ -175,9 +163,7 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @throws NullPointerException if the {@code predicate} is null
      */
-    default @NotNull S expireIf(@NotNull Predicate<T> predicate) {
-        return expireIf(predicate, TestStage.PRE_FILTER, TestStage.POST_HANDLE);
-    }
+    default @NotNull S expireIf(@NotNull Predicate<T> predicate) { return expireIf(predicate, TestStage.PRE_FILTER, TestStage.POST_HANDLE); }
 
     /**
      * Expires the subscriber after a {@link Predicate} returns true.
@@ -189,9 +175,7 @@ public interface PriorityEventSubscriber<S extends PriorityEventSubscriber<S, P,
      *
      * @throws NullPointerException if the {@code predicate} or {@code stages} are null
      */
-    default @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull Collection<TestStage> stages) {
-        return expireIf(predicate, stages.toArray(new TestStage[0]));
-    }
+    default @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull Collection<TestStage> stages) { return expireIf(predicate, stages.toArray(new TestStage[0])); }
 
     /**
      * Expires the subscriber after a {@link Predicate} returns true.

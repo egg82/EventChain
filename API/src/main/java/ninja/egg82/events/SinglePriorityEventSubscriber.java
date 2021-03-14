@@ -8,5 +8,4 @@ package ninja.egg82.events;
  * @param <P> the class type of the priority system
  * @param <T> the class type of the event
  */
-public interface SinglePriorityEventSubscriber<S extends SinglePriorityEventSubscriber<S, P, T>, P, T> extends PriorityEventSubscriber<S, P, T> {
-}
+public interface SinglePriorityEventSubscriber<S extends SinglePriorityEventSubscriber<S, P, T>, P, T> extends PriorityEventSubscriber<S, P, T> { }

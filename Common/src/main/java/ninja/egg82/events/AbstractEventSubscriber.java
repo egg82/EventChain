@@ -31,30 +31,22 @@ public abstract class AbstractEventSubscriber<S extends AbstractEventSubscriber<
     }
 
     @Override
-    public Class<T> getBaseClass() {
-        return baseClass;
-    }
+    public @NotNull Class<T> getBaseClass() { return baseClass; }
 
-    protected AtomicBoolean cancelState = new AtomicBoolean(false);
+    protected final AtomicBoolean cancelState = new AtomicBoolean(false);
 
     @Override
-    public @NotNull AtomicBoolean cancellationState() {
-        return cancelState;
-    }
+    public @NotNull AtomicBoolean cancellationState() { return cancelState; }
 
-    protected AtomicBoolean expireState = new AtomicBoolean(false);
+    protected final AtomicBoolean expireState = new AtomicBoolean(false);
 
     @Override
-    public @NotNull AtomicBoolean expirationState() {
-        return expireState;
-    }
+    public @NotNull AtomicBoolean expirationState() { return expireState; }
 
-    protected AtomicLong calls = new AtomicLong(0L);
+    protected final AtomicLong calls = new AtomicLong(0L);
 
     @Override
-    public @NotNull AtomicLong callCount() {
-        return calls;
-    }
+    public @NotNull AtomicLong callCount() { return calls; }
 
     @Override
     public void cancel() {
@@ -125,10 +117,9 @@ public abstract class AbstractEventSubscriber<S extends AbstractEventSubscriber<
     }
 
     @Override
-    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) {
-        return expireIf((t, p) -> predicate.test(p), stages);
-    }
+    public @NotNull S expireIf(@NotNull Predicate<T> predicate, @NotNull TestStage... stages) { return expireIf((t, p) -> predicate.test(p), stages); }
 
+    @SuppressWarnings("unchecked")
     private @NotNull S expireIf(@NotNull BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate, @NotNull TestStage... stages) {
         for (TestStage stage : stages) {
             expireBiPredicates.compute(stage, (k, v) -> {
@@ -143,40 +134,35 @@ public abstract class AbstractEventSubscriber<S extends AbstractEventSubscriber<
     }
 
     @Override
-    public @NotNull S filter(@NotNull Predicate<T> predicate) {
-        return filter((t, p) -> predicate.test(p));
-    }
+    public @NotNull S filter(@NotNull Predicate<T> predicate) { return filter((t, p) -> predicate.test(p)); }
 
+    @SuppressWarnings("unchecked")
     private @NotNull S filter(@NotNull BiPredicate<AbstractEventSubscriber<S, E, T>, T> predicate) {
         filterBiPredicates.add(predicate);
         return (S) this;
     }
 
     @Override
-    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) {
-        return exceptionHandler((t, p) -> consumer.accept(p));
-    }
+    public @NotNull S exceptionHandler(@NotNull Consumer<Throwable> consumer) { return exceptionHandler((t, p) -> consumer.accept(p)); }
 
     @Override
+    @SuppressWarnings("unchecked")
     public @NotNull S exceptionHandler(@NotNull BiConsumer<? super T, Throwable> consumer) {
         exceptionBiConsumers.add(consumer);
         return (S) this;
     }
 
     @Override
-    public @NotNull S handler(@NotNull Consumer<? super T> handler) {
-        return handler((t, p) -> handler.accept(p));
-    }
+    public @NotNull S handler(@NotNull Consumer<? super T> handler) { return handler((t, p) -> handler.accept(p)); }
 
+    @SuppressWarnings("unchecked")
     private @NotNull S handler(@NotNull BiConsumer<AbstractEventSubscriber<S, E, T>, ? super T> handler) {
         handlerBiConsumers.add(handler);
         return (S) this;
     }
 
     protected final boolean tryExpire(
-            @NotNull T event,
-            List<BiPredicate<AbstractEventSubscriber<S, E, T>, T>> biCallList,
-            @NotNull SubscriberStage stage
+            @NotNull T event, List<BiPredicate<AbstractEventSubscriber<S, E, T>, T>> biCallList, @NotNull SubscriberStage stage
     ) throws EventException {
         if (biCallList == null) {
             return false;

@@ -23,7 +23,11 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
     @Override
     @Deprecated
     public @NotNull KyoriMergedEventSubsciber<E1, T> bind(@NotNull Class<E1> event, @NotNull Integer priority, @NotNull Function<E1, T> function) {
-        return bind(event, priority.intValue(), function);
+        return bind(
+                event,
+                priority.intValue(),
+                function
+        );
     }
 
     public @NotNull KyoriMergedEventSubsciber<E1, T> bind(@NotNull Class<E1> event, int priority, @NotNull Function<E1, T> function) {

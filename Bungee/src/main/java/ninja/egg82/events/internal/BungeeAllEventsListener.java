@@ -481,6 +481,7 @@ public class BungeeAllEventsListener<E extends Event> implements Listener {
         onAnyEvent(EventPriority.LOWEST, e, e.getClass());
     }
 
+    @SuppressWarnings("unchecked")
     private <S extends Event> void onAnyEvent(byte priority, S event, Class<? extends Event> clazz) {
         if (priority != this.priority) {
             return;

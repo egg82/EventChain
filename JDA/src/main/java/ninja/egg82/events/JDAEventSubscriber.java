@@ -16,6 +16,7 @@ public class JDAEventSubscriber<T extends GenericEvent> extends AbstractEventSub
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onEvent(@NotNull GenericEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

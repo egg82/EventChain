@@ -10,8 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * The main way to create event subscribers.
  */
 public class BukkitEvents {
-    private BukkitEvents() {
-    }
+    private BukkitEvents() { }
 
     /**
      * Returns a single event subscriber.
@@ -24,7 +23,11 @@ public class BukkitEvents {
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
     public static <T extends Event> @NotNull BukkitEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event) {
-        return new BukkitEventSubscriber<>(plugin, event, EventPriority.NORMAL);
+        return new BukkitEventSubscriber<>(
+                plugin,
+                event,
+                EventPriority.NORMAL
+        );
     }
 
     /**
@@ -38,9 +41,11 @@ public class BukkitEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code event}, or {@code priority} is null
      */
-    public static <T extends Event> @NotNull BukkitEventSubscriber<T> subscribe(@NotNull Plugin plugin, @NotNull Class<T> event, @NotNull EventPriority priority) {
-        return new BukkitEventSubscriber<>(plugin, event, priority);
-    }
+    public static <T extends Event> @NotNull BukkitEventSubscriber<T> subscribe(
+            @NotNull Plugin plugin,
+            @NotNull Class<T> event,
+            @NotNull EventPriority priority
+    ) { return new BukkitEventSubscriber<>(plugin, event, priority); }
 
     /**
      * Calls an event on the current thread.
@@ -87,9 +92,10 @@ public class BukkitEvents {
      *
      * @throws NullPointerException if {@code plugin} or {@code superclass} is null
      */
-    public static <E1 extends Event, T> @NotNull BukkitMergedEventSubscriber<E1, T> merge(@NotNull Plugin plugin, @NotNull Class<T> superclass) {
-        return new BukkitMergedEventSubscriber<>(plugin, superclass);
-    }
+    public static <E1 extends Event, T> @NotNull BukkitMergedEventSubscriber<E1, T> merge(
+            @NotNull Plugin plugin,
+            @NotNull Class<T> superclass
+    ) { return new BukkitMergedEventSubscriber<>(plugin, superclass); }
 
     /**
      * Returns a merged event subscriber
@@ -104,12 +110,8 @@ public class BukkitEvents {
      * @throws NullPointerException if {@code plugin}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(
-            @NotNull Plugin plugin,
-            @NotNull Class<T> superclass,
-            @NotNull Class<E1>... events
-    ) {
-        return merge(plugin, superclass, EventPriority.NORMAL, events);
-    }
+            @NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events
+    ) { return merge(plugin, superclass, EventPriority.NORMAL, events); }
 
     /**
      * Returns a merged event subscriber
@@ -125,10 +127,7 @@ public class BukkitEvents {
      * @throws NullPointerException if {@code plugin}, {@code superclass}, {@code priority}, or {@code events} are null
      */
     public static <E1 extends T, T extends Event> @NotNull BukkitMergedEventSubscriber<E1, T> merge(
-            @NotNull Plugin plugin,
-            @NotNull Class<T> superclass,
-            @NotNull EventPriority priority,
-            @NotNull Class<E1>... events
+            @NotNull Plugin plugin, @NotNull Class<T> superclass, @NotNull EventPriority priority, @NotNull Class<E1>... events
     ) {
         BukkitMergedEventSubscriber<E1, T> subscriber = new BukkitMergedEventSubscriber<>(plugin, superclass);
         for (Class<E1> clazz : events) {

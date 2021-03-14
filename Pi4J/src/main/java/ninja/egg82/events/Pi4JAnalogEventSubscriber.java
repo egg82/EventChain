@@ -22,6 +22,7 @@ public class Pi4JAnalogEventSubscriber<T extends GpioPinAnalogValueChangeEvent> 
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void handleGpioPinAnalogValueChangeEvent(GpioPinAnalogValueChangeEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

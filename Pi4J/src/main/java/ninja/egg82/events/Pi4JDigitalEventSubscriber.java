@@ -22,6 +22,7 @@ public class Pi4JDigitalEventSubscriber<T extends GpioPinDigitalStateChangeEvent
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

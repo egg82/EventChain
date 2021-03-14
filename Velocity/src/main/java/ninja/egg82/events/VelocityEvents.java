@@ -5,8 +5,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import org.jetbrains.annotations.NotNull;
 
 public class VelocityEvents {
-    private VelocityEvents() {
-    }
+    private VelocityEvents() { }
 
     /**
      * Returns a single event subscriber.
@@ -19,9 +18,11 @@ public class VelocityEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code event} is null
      */
-    public static <T> @NotNull VelocityEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event) {
-        return new VelocityEventSubscriber<>(plugin, proxy, event, PostOrder.NORMAL);
-    }
+    public static <T> @NotNull VelocityEventSubscriber<T> subscribe(
+            @NotNull Object plugin,
+            @NotNull ProxyServer proxy,
+            @NotNull Class<T> event
+    ) { return new VelocityEventSubscriber<>(plugin, proxy, event, PostOrder.NORMAL); }
 
     /**
      * Returns a single event subscriber.
@@ -36,13 +37,8 @@ public class VelocityEvents {
      * @throws NullPointerException if {@code plugin}, {@code proxy} {@code event}, or {@code priority} is null
      */
     public static <T> @NotNull VelocityEventSubscriber<T> subscribe(
-            @NotNull Object plugin,
-            @NotNull ProxyServer proxy,
-            @NotNull Class<T> event,
-            @NotNull PostOrder priority
-    ) {
-        return new VelocityEventSubscriber<>(plugin, proxy, event, priority);
-    }
+            @NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> event, @NotNull PostOrder priority
+    ) { return new VelocityEventSubscriber<>(plugin, proxy, event, priority); }
 
     /**
      * Calls an event on the current thread.
@@ -80,9 +76,11 @@ public class VelocityEvents {
      *
      * @throws NullPointerException if {@code plugin}, {@code proxy}, or {@code superclass} is null
      */
-    public static <E1, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(@NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass) {
-        return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass);
-    }
+    public static <E1, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(
+            @NotNull Object plugin,
+            @NotNull ProxyServer proxy,
+            @NotNull Class<T> superclass
+    ) { return new VelocityMergedEventSubscriber<>(plugin, proxy, superclass); }
 
     /**
      * Returns a merged event subscriber
@@ -98,13 +96,8 @@ public class VelocityEvents {
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(
-            @NotNull Object plugin,
-            @NotNull ProxyServer proxy,
-            @NotNull Class<T> superclass,
-            @NotNull Class<E1>... events
-    ) {
-        return merge(plugin, proxy, superclass, PostOrder.NORMAL, events);
-    }
+            @NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull Class<E1>... events
+    ) { return merge(plugin, proxy, superclass, PostOrder.NORMAL, events); }
 
     /**
      * Returns a merged event subscriber
@@ -121,11 +114,7 @@ public class VelocityEvents {
      * @throws NullPointerException if {@code plugin}, {@code proxy}, {@code superclass}, {@code priority}, or {@code events} are null
      */
     public static <E1 extends T, T> @NotNull VelocityMergedEventSubscriber<E1, T> merge(
-            @NotNull Object plugin,
-            @NotNull ProxyServer proxy,
-            @NotNull Class<T> superclass,
-            @NotNull PostOrder priority,
-            @NotNull Class<E1>... events
+            @NotNull Object plugin, @NotNull ProxyServer proxy, @NotNull Class<T> superclass, @NotNull PostOrder priority, @NotNull Class<E1>... events
     ) {
         VelocityMergedEventSubscriber<E1, T> subscriber = new VelocityMergedEventSubscriber<>(plugin, proxy, superclass);
         for (Class<E1> clazz : events) {

@@ -14,9 +14,7 @@ public abstract class AbstractMergedEventSubscriber<S extends AbstractMergedEven
         super(superclass);
     }
 
-    public @NotNull Class<T> getSuperclass() {
-        return baseClass;
-    }
+    public @NotNull Class<T> getSuperclass() { return baseClass; }
 
     @Override
     public void call(@NotNull T event) throws EventException {

@@ -4,7 +4,7 @@ Easy-to-use event system
 
 Originally developed by Luck @ https://github.com/lucko/helper - the event system from that library was split off and re-written to be more generic.
 
-This event system allows for many different Minecraft plugin types (not just Bukkit) as well as the ability to create completely new and custom ones.
+This event system allows for many Minecraft plugin types (not just Bukkit) as well as the ability to create completely new and custom ones.
 
 ## Maven
 

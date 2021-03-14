@@ -19,6 +19,7 @@ public class KittehEventSubscriber<T extends ClientEvent> extends AbstractEventS
     }
 
     @Handler
+    @SuppressWarnings("unchecked")
     public void onAnyEvent(@NotNull ClientEvent event) {
         if (!baseClass.isInstance(event)) {
             return;

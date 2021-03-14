@@ -11,14 +11,7 @@ import java.util.function.Predicate;
  * This class stolen from Luck's Helper @ https://github.com/lucko/helper/blob/master/helper/src/main/java/me/lucko/helper/event/filter/EventFilters.java
  */
 public class SpongeEventFilters {
-    private SpongeEventFilters() {
-    }
-
-    private static final Predicate<? extends Cancellable> IGNORE_CANCELLED = e -> !e.isCancelled();
-    private static final Predicate<? extends Cancellable> IGNORE_UNCANCELLED = Cancellable::isCancelled;
-
-    private static final Predicate<? extends MoveEntityEvent> IGNORE_SAME_BLOCK = e ->
-            !e.getFromTransform().getPosition().floor().equals(e.getToTransform().getPosition().floor());
+    private SpongeEventFilters() { }
 
     /**
      * Returns a predicate which only returns true if the event isn't cancelled
@@ -27,9 +20,7 @@ public class SpongeEventFilters {
      *
      * @return a predicate which only returns true if the event isn't cancelled
      */
-    public static <T extends Cancellable> Predicate<T> ignoreCancelled() {
-        return (Predicate<T>) IGNORE_CANCELLED;
-    }
+    public static <T extends Cancellable> Predicate<T> ignoreCancelled() { return e -> !e.isCancelled(); }
 
     /**
      * Returns a predicate which only returns true if the event is cancelled
@@ -38,9 +29,7 @@ public class SpongeEventFilters {
      *
      * @return a predicate which only returns true if the event is cancelled
      */
-    public static <T extends Cancellable> Predicate<T> ignoreNotCancelled() {
-        return (Predicate<T>) IGNORE_UNCANCELLED;
-    }
+    public static <T extends Cancellable> Predicate<T> ignoreNotCancelled() { return Cancellable::isCancelled; }
 
     /**
      * Returns a predicate which only returns true if the player has moved over a block
@@ -50,7 +39,10 @@ public class SpongeEventFilters {
      * @return a predicate which only returns true if the player has moved over a block
      */
     public static <T extends MoveEntityEvent> Predicate<T> ignoreSameBlock() {
-        return (Predicate<T>) IGNORE_SAME_BLOCK;
+        return e -> !e.getFromTransform()
+                .getPosition()
+                .floor()
+                .equals(e.getToTransform().getPosition().floor());
     }
 
     /**
@@ -62,6 +54,9 @@ public class SpongeEventFilters {
      * @return a predicate which only returns true if the player has the given permission
      */
     public static <T extends Event> Predicate<T> playerHasPermission(String permission) {
-        return e -> e.getCause().first(Subject.class).isPresent() && e.getCause().first(Subject.class).get().hasPermission(permission);
+        return e -> e.getCause().first(Subject.class).isPresent() && e.getCause()
+                .first(Subject.class)
+                .get()
+                .hasPermission(permission);
     }
 }

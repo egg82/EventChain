@@ -6,6 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public class BukkitEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<BukkitEventSubscriber<T>, EventPriority, T> implements Listener {
+    @SuppressWarnings("unchecked")
     public BukkitEventSubscriber(@NotNull Plugin plugin, @NotNull Class<T> event, @NotNull EventPriority priority) {
         super(event);
 
