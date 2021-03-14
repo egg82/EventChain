@@ -88,7 +88,7 @@
         </repository>
         <repository>
             <id>sponge</id>
-            <url>http://repo.spongepowered.org/maven/</url>
+            <url>https://repo.spongepowered.org/repository/maven-public/</url>
         </repository>
     </repositories>
 

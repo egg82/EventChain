@@ -10,6 +10,8 @@ public class KyoriEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
+     * @param <E> the class type of the event bus
      * @param bus the bus to listen to events with
      * @param event the event class to listen to
      *
@@ -28,6 +30,8 @@ public class KyoriEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
+     * @param <E> the class type of the event bus
      * @param bus the bus to listen to events with
      * @param event the event class to listen to
      * @param priority the priority to listen on
@@ -45,6 +49,8 @@ public class KyoriEvents {
     /**
      * Calls an event on the current thread.
      *
+     * @param <T> the class type of the event to call
+     * @param <E> the class type of the event bus
      * @param bus the bus to call the event with
      * @param event the event to call
      *
@@ -57,6 +63,8 @@ public class KyoriEvents {
     /**
      * Returns a merged event subscriber.
      *
+     * @param <E1> the class type of the event bus
+     * @param <T> the class type that will be processed in the handler
      * @param bus the bus to listen to events with
      * @param superclass the event class that will be processed in the handler
      *
@@ -73,6 +81,8 @@ public class KyoriEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event bus
+     * @param <T> the class type that will be processed in the handler
      * @param bus the bus to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
@@ -89,6 +99,8 @@ public class KyoriEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event bus
+     * @param <T> the class type that will be processed in the handler
      * @param bus the bus to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param priority the priority to listen on

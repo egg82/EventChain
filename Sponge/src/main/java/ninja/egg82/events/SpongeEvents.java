@@ -11,6 +11,7 @@ public class SpongeEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
      * @param plugin the plugin to listen to events with
      * @param event the event class to listen to
      *
@@ -30,6 +31,7 @@ public class SpongeEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
      * @param plugin the plugin to listen to events with
      * @param event the event class to listen to
      * @param priority the priority to listen on
@@ -81,6 +83,8 @@ public class SpongeEvents {
     /**
      * Returns a merged event subscriber.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param beforeModifications whether or not to call this subscriber before other server modifications
@@ -99,6 +103,8 @@ public class SpongeEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
@@ -115,6 +121,8 @@ public class SpongeEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param plugin the plugin to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param priority the priority to listen on

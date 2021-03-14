@@ -12,6 +12,7 @@ public class Pi4JEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
      * @param input the input to listen to events with
      * @param event the event class to listen to
      *
@@ -26,6 +27,7 @@ public class Pi4JEvents {
     /**
      * Returns a single event subscriber.
      *
+     * @param <T> the class type of the event to listen to
      * @param input the input to listen to events with
      * @param event the event class to listen to
      *
@@ -41,6 +43,8 @@ public class Pi4JEvents {
     /**
      * Returns a merged event subscriber.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param input the input to listen to events with
      * @param superclass the event class that will be processed in the handler
      *
@@ -55,6 +59,8 @@ public class Pi4JEvents {
     /**
      * Returns a merged event subscriber.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param input the input to listen to events with
      * @param superclass the event class that will be processed in the handler
      *
@@ -70,6 +76,8 @@ public class Pi4JEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param input the input to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
@@ -92,6 +100,8 @@ public class Pi4JEvents {
      * Returns a merged event subscriber
      * that listens to multiple similar events.
      *
+     * @param <E1> the class type of the event to listen to
+     * @param <T> the class type that will be processed in the handler
      * @param input the input to listen to events with
      * @param superclass the event class that will be processed in the handler
      * @param events the events to listen to
