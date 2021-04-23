@@ -34,7 +34,7 @@ public class KyoriMergedEventSubsciber<E1, T> extends AbstractMergedPriorityEven
     public @NotNull KyoriMergedEventSubsciber<E1, T> bind(@NotNull Class<E1> event, int priority, @NotNull Function<E1, T> function) {
         mappings.put(event, new KyoriHandlerMapping<>(priority, function));
 
-        EventSubscriber<E1> subscriber = new AbstractKyoriSubscriber<E1>(event, priority) {
+        EventSubscriber<E1> subscriber = new AbstractKyoriSubscriber<E1>(priority) {
             @Override
             public void invoke(@NotNull E1 event) throws Exception {
                 try {
