@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.Order;
+import org.spongepowered.plugin.PluginContainer;
 
 public class SpongeEvents {
     private SpongeEvents() { }
@@ -19,7 +20,7 @@ public class SpongeEvents {
      *
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
-    public static <T extends Event> @NotNull SpongeEventSubscriber<T> subscribe(@NotNull Object plugin, @NotNull Class<T> event) {
+    public static <T extends Event> @NotNull SpongeEventSubscriber<T> subscribe(@NotNull PluginContainer plugin, @NotNull Class<T> event) {
         return new SpongeEventSubscriber<>(
                 plugin,
                 event,
@@ -42,7 +43,7 @@ public class SpongeEvents {
      * @throws NullPointerException if {@code plugin}, {@code event}, or {@code priority} is null
      */
     public static <T extends Event> @NotNull SpongeEventSubscriber<T> subscribe(
-            @NotNull Object plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications
+            @NotNull PluginContainer plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications
     ) { return new SpongeEventSubscriber<>(plugin, event, priority, beforeModifications); }
 
     /**
@@ -53,7 +54,7 @@ public class SpongeEvents {
      * @throws NullPointerException if {@code event} is null
      */
     public static void call(@NotNull Event event) {
-        Sponge.getEventManager().post(event);
+        Sponge.eventManager().post(event);
     }
 
     /**
@@ -64,8 +65,8 @@ public class SpongeEvents {
      *
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
-    public static void callAsync(@NotNull Object plugin, @NotNull Event event) {
-        Sponge.getScheduler().createAsyncExecutor(plugin).execute(() -> call(event));
+    public static void callAsync(@NotNull PluginContainer plugin, @NotNull Event event) {
+        Sponge.asyncScheduler().executor(plugin).execute(() -> call(event));
     }
 
     /**
@@ -76,8 +77,8 @@ public class SpongeEvents {
      *
      * @throws NullPointerException if {@code plugin} or {@code event} is null
      */
-    public static void callSync(@NotNull Object plugin, @NotNull Event event) {
-        Sponge.getScheduler().createSyncExecutor(plugin).execute(() -> call(event));
+    public static void callSync(@NotNull PluginContainer plugin, @NotNull Event event) {
+        Sponge.server().scheduler().executor(plugin).execute(() -> call(event)); // TODO: Is this actually sync?
     }
 
     /**
@@ -94,7 +95,7 @@ public class SpongeEvents {
      * @throws NullPointerException if {@code plugin} or {@code superclass} is null
      */
     public static <E1 extends Event, T> SpongeMergedEventSubscriber<E1, T> merge(
-            @NotNull Object plugin,
+            @NotNull PluginContainer plugin,
             @NotNull Class<T> superclass,
             boolean beforeModifications
     ) { return new SpongeMergedEventSubscriber<>(plugin, superclass, beforeModifications); }
@@ -115,7 +116,7 @@ public class SpongeEvents {
      */
     @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(
-            @NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events
+            @NotNull PluginContainer plugin, @NotNull Class<T> superclass, @NotNull Class<E1>... events
     ) { return merge(plugin, superclass, Order.DEFAULT, false, events); }
 
     /**
@@ -136,7 +137,7 @@ public class SpongeEvents {
      */
     @SafeVarargs
     public static <E1 extends T, T extends Event> @NotNull SpongeMergedEventSubscriber<E1, T> merge(
-            @NotNull Object plugin, @NotNull Class<T> superclass, @NotNull Order priority, boolean beforeModifications, @NotNull Class<E1>... events
+            @NotNull PluginContainer plugin, @NotNull Class<T> superclass, @NotNull Order priority, boolean beforeModifications, @NotNull Class<E1>... events
     ) {
         SpongeMergedEventSubscriber<E1, T> subscriber = new SpongeMergedEventSubscriber<>(plugin, superclass, beforeModifications);
         for (Class<E1> clazz : events) {

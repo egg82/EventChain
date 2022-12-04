@@ -4,12 +4,14 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
+import org.spongepowered.api.event.EventListenerRegistration;
 import org.spongepowered.api.event.Order;
+import org.spongepowered.plugin.PluginContainer;
 
 public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEventSubscriber<SpongeEventSubscriber<T>, Order, T> {
     private final EventListener<? super T> listener;
 
-    public SpongeEventSubscriber(@NotNull Object plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications) {
+    public SpongeEventSubscriber(@NotNull PluginContainer plugin, @NotNull Class<T> event, @NotNull Order priority, boolean beforeModifications) {
         super(event);
 
         listener = e -> {
@@ -24,12 +26,12 @@ public class SpongeEventSubscriber<T extends Event> extends AbstractPriorityEven
             }
         };
 
-        Sponge.getEventManager().registerListener(plugin, event, priority, beforeModifications, listener);
+        Sponge.eventManager().registerListener(EventListenerRegistration.builder(event).listener(listener).plugin(plugin).order(priority).beforeModifications(beforeModifications).build());
     }
 
     @Override
     public void cancel() {
         super.cancel();
-        Sponge.getEventManager().unregisterListeners(listener);
+        Sponge.eventManager().unregisterListeners(listener);
     }
 }

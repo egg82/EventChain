@@ -39,10 +39,9 @@ public class SpongeEventFilters {
      * @return a predicate which only returns true if the player has moved over a block
      */
     public static <T extends MoveEntityEvent> Predicate<T> ignoreSameBlock() {
-        return e -> !e.getFromTransform()
-                .getPosition()
+        return e -> !e.originalPosition()
                 .floor()
-                .equals(e.getToTransform().getPosition().floor());
+                .equals(e.destinationPosition().floor());
     }
 
     /**
@@ -54,7 +53,7 @@ public class SpongeEventFilters {
      * @return a predicate which only returns true if the player has the given permission
      */
     public static <T extends Event> Predicate<T> playerHasPermission(String permission) {
-        return e -> e.getCause().first(Subject.class).isPresent() && e.getCause()
+        return e -> e.cause().first(Subject.class).isPresent() && e.cause()
                 .first(Subject.class)
                 .get()
                 .hasPermission(permission);

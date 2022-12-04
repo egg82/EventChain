@@ -5,7 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.EventListener;
+import org.spongepowered.api.event.EventListenerRegistration;
 import org.spongepowered.api.event.Order;
+import org.spongepowered.plugin.PluginContainer;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -14,10 +16,10 @@ import java.util.function.Function;
 public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMergedPriorityEventSubscriber<SpongeMergedEventSubscriber<E1, T>, Order, E1, T> {
     private final List<EventListener<E1>> listeners = new CopyOnWriteArrayList<>();
 
-    private final Object plugin;
+    private final PluginContainer plugin;
     private final boolean beforeModifications;
 
-    public SpongeMergedEventSubscriber(@NotNull Object plugin, @NotNull Class<T> superclass, boolean beforeModifications) {
+    public SpongeMergedEventSubscriber(@NotNull PluginContainer plugin, @NotNull Class<T> superclass, boolean beforeModifications) {
         super(superclass);
 
         this.plugin = plugin;
@@ -37,7 +39,7 @@ public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         };
         listeners.add(listener);
 
-        Sponge.getEventManager().registerListener(plugin, event, priority, beforeModifications, listener);
+        Sponge.eventManager().registerListener(EventListenerRegistration.builder(event).listener(listener).plugin(plugin).order(priority).beforeModifications(beforeModifications).build());
         return this;
     }
 
@@ -46,7 +48,7 @@ public class SpongeMergedEventSubscriber<E1 extends Event, T> extends AbstractMe
         super.cancel();
 
         for (EventListener<?> listener : listeners) {
-            Sponge.getEventManager().unregisterListeners(listener);
+            Sponge.eventManager().unregisterListeners(listener);
         }
         listeners.clear();
     }
