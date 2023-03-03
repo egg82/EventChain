@@ -17,7 +17,8 @@
 
         <bukkit.version>1.8-R0.1-SNAPSHOT</bukkit.version>
         <bungee.version>1.8-SNAPSHOT</bungee.version>
-        <jda.version>5.0.0-beta.1</jda.version>
+        <jda.release.version>5.0.0-beta.5</jda.release.version>
+        <jda.lts.version>4.4.1_353</jda.lts.version>
         <kitteh.version>8.0.0</kitteh.version>
         <kyori-event.version>3.0.0</kyori-event.version>
         <pi4j.version>1.3</pi4j.version>
@@ -90,7 +91,8 @@
                 <configuration>
                     <source>17</source>
                     <links>
-                        <link>https://javadoc.io/doc/net.dv8tion/JDA/${jda.version}/</link>
+                        <link>https://javadoc.io/doc/net.dv8tion/JDA/${jda.lts.version}/</link>
+                        <link>https://javadoc.io/doc/net.dv8tion/JDA/${jda.release.version}/</link>
                         <link>https://kittehorg.github.io/KittehIRCClientLib/${kitteh.version}/</link>
                         <link>https://javadoc.io/doc/net.kyori/event-api/${kyori-event.version}/</link>
                         <link>https://pi4j.com/${pi4j.version}/apidocs/</link>
@@ -218,7 +220,8 @@
         <module>Common</module>
         <module>Bukkit</module>
         <module>Bungee</module>
-        <module>JDA</module>
+        <module>JDA-Release</module>
+        <module>JDA-LTS</module>
         <module>KittehIRC</module>
         <module>Kyori</module>
         <module>Pi4J</module>
