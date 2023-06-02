@@ -8,7 +8,7 @@ steps:
   commands:
     - mvn clean package -U -f pom.xml
 
-- name: deploy-javadocs
+- name: deploy-api-javadocs
   image: appleboy/drone-scp
   settings:
     host: javadoc.egg82.me
@@ -18,4 +18,124 @@ steps:
     port: 22
     source: API/target/apidocs/*
     target: /var/drone/EventChain-API
+    strip_components: 1
+
+- name: deploy-bukkit-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Bukkit/target/apidocs/*
+    target: /var/drone/EventChain-Bukkit
+    strip_components: 1
+
+- name: deploy-bungee-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Bungee/target/apidocs/*
+    target: /var/drone/EventChain-Bungee
+    strip_components: 1
+
+- name: deploy-common-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Common/target/apidocs/*
+    target: /var/drone/EventChain-Common
+    strip_components: 1
+
+- name: deploy-jda-lts-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: JDA-LTS/target/apidocs/*
+    target: /var/drone/EventChain-JDA-LTS
+    strip_components: 1
+
+- name: deploy-jda-release-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: JDA-Release/target/apidocs/*
+    target: /var/drone/EventChain-JDA-Release
+    strip_components: 1
+
+- name: deploy-kittehirc-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: KittehIRC/target/apidocs/*
+    target: /var/drone/EventChain-KittehIRC
+    strip_components: 1
+
+- name: deploy-kyori-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Kyori/target/apidocs/*
+    target: /var/drone/EventChain-Kyori
+    strip_components: 1
+
+- name: deploy-pi4j-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Pi4J/target/apidocs/*
+    target: /var/drone/EventChain-Pi4J
+    strip_components: 1
+
+- name: deploy-sponge-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Sponge/target/apidocs/*
+    target: /var/drone/EventChain-Sponge
+    strip_components: 1
+
+- name: deploy-velocity-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: Velocity/target/apidocs/*
+    target: /var/drone/EventChain-Velocity
     strip_components: 1
