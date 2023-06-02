@@ -11,8 +11,8 @@ This event system allows for many Minecraft plugin types (not just Bukkit) as we
 ```XML
 <repositories>
   <repository>
-    <id>egg82-nexus</id>
-    <url>https://nexus.egg82.me/repository/maven-releases/</url>
+    <id>egg82-repo-releases</id>
+    <url>https://repo.egg82.me/releases/</url>
   </repository>
 </repositories>
 
@@ -31,8 +31,8 @@ This event system allows for many Minecraft plugin types (not just Bukkit) as we
 </dependencies>
 ```
 
-Link to the latest API version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
-Link to the latest core version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-common/).<br/>
+Link to the latest API version is available [here](https://repo.egg82.me/releases/ninja/egg82/event-chain-api/).<br/>
+Link to the latest core version is available [here](https://repo.egg82.me/releases/ninja/egg82/event-chain-common/).<br/>
 Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
 ## Gradle
@@ -40,7 +40,7 @@ Javadocs are available from the same repository, so IDEs should be able to pick 
 ```Gradle
 repositories {
     maven {
-        url 'https://nexus.egg82.me/repository/maven-releases/'
+        url 'https://repo.egg82.me/releases/'
     }
 }
 
@@ -50,8 +50,8 @@ dependencies {
 }
 ```
 
-Link to the latest API version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-api/).<br/>
-Link to the latest core version is available [here](https://nexus.egg82.me/service/rest/repository/browse/maven-releases/ninja/egg82/event-chain-common/).<br/>
+Link to the latest API version is available [here](https://repo.egg82.me/releases/ninja/egg82/event-chain-api/).<br/>
+Link to the latest core version is available [here](https://repo.egg82.me/releases/ninja/egg82/event-chain-common/).<br/>
 Javadocs are available from the same repository, so IDEs should be able to pick those up automatically.
 
 ## Examples

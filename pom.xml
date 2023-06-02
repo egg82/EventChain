@@ -162,41 +162,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.0.0</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <serverId>nexus</serverId>
-                    <nexusUrl>https://nexus.egg82.me/</nexusUrl>
-                    <skipStaging>true</skipStaging>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>https://nexus.egg82.me/repository/maven-snapshots/</url>
+            <id>egg82-repo-snapshots</id>
+            <url>https://repo.egg82.me/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>nexus</id>
-            <url>https://nexus.egg82.me/repository/maven-releases/</url>
+            <id>egg82-repo-releases</id>
+            <url>https://repo.egg82.me/releases</url>
         </repository>
     </distributionManagement>
 
