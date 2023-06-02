@@ -1,0 +1,21 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: build
+  image: maven:3.8.3-amazoncorretto-17
+  commands:
+    - mvn clean package -U -f pom.xml
+
+- name: deploy-javadocs
+  image: appleboy/drone-scp
+  settings:
+    host: javadoc.egg82.me
+    username: drone
+    password:
+      from_secret: vps_password
+    port: 22
+    source: API/target/apidocs/*
+    target: /var/drone/EventChain-API
+    strip_components: 1
