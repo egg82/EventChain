@@ -14,6 +14,10 @@ This event system allows for many Minecraft plugin types (not just Bukkit) as we
     <id>egg82-repo-releases</id>
     <url>https://repo.egg82.me/releases/</url>
   </repository>
+  <repository>
+    <id>egg82-repo-snapshots</id>
+    <url>https://repo.egg82.me/snapshots/</url>
+  </repository>
 </repositories>
 
 <dependencies>
